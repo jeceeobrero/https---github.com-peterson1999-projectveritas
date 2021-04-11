@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/newsSec.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
+    <div id="newsSec">
+        <div class="d-flex justify-content-between flex-nowrap">
+            <h6 class="mb-1 text-dark font-weight-bold">GMA News <span class="badge badge-primary badge-pill">93% Credible</span></h6>
+            <a class="text-secondary" href="#">See GMA News Articles  <i class="bi bi-caret-right-fill" title="Go "></i></a>
+        </div>
+        <a class="text-dark" href="#">
+            <h3 class="text-dark mt-3 mx-0 font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">93% Credible</span></h3>
+            <h6 class="text-secondary my-0 py-0">3 days ago</h6>
+        </a>
+
+        <div class="row mt-4">
+            <div class="col-12 my-3">
+                <h6 class="text-secondary mb-4 py-0">News Article Credibility</h6>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Journalism</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">55% Journalism</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Opinion</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 25%; background-color: rgb(73, 100, 255);" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">25% Opinion</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Satire</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 75%; background-color: blueviolet;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" ></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">75% Satire</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Sensational</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: rgb(232, 75, 75)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" ></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">95% Sensational</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Reliable</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: orange;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" ></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">90% Reliable</h6>
+                </div>
+                <div class="row mt-4 pl-3">
+                    <h4 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h4>
+                    <h4 class="text-success font-weight-bold py-0 pl-3"> 85%</h4>
+                </div>
+            </div>
+            <div class="col-12 my-3">
+                <h6 class="text-secondary mb-4 py-0">News Outlet Credibility</h6>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Journalism</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">55% Journalism</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Opinion</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 25%; background-color: rgb(73, 100, 255);" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">25% Opinion</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Satire</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 75%; background-color: blueviolet;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" ></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">75% Satire</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Sensational</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: rgb(232, 75, 75)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" ></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">95% Sensational</h6>
+                </div>
+                <div class="row mt-2">
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Reliable</h6>
+                    <div class="col-xl-4 progress mx-3 px-0">
+                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: orange;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" ></div>
+                    </div>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">90% Reliable</h6>
+                </div>
+                <div class="row mt-4 pl-3">
+                    <h4 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h4>
+                    <h4 class="text-success font-weight-bold py-0 pl-3"> 85%</h4>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock %}               
+
+            

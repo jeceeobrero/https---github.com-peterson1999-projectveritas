@@ -1,0 +1,52 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/newsSec.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
+        <div id="newsSec">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <span><h2 class="font-weight-bold">About</h2></span>
+                </div>
+            </div>
+            <div class="border border-0 rounded mt-4 p-0">
+                <h3>What is Project Veritas?</h3>
+                <p class="text-justify mt-4">
+                    Project Veritas is an Artificial Intelligence tool built to help us understand more about what we read.<br><br> 
+                    
+                    It has become very easy for us to share information with one another. We at Project Veritas think this is great! 
+                    However, this free flow of information has also made it easier for some authors to mix less credible stories 
+                    in with factual articles. Too much of what we can read and learn from on the internet is not always about 
+                    figuring out what is true or sharing knowledge. <br><br>
+                    
+                    Instead of focusing on just the facts, some articles focus 
+                    more on tapping into natural human reactions to how information is presented, not what the information is 
+                    telling us. At Project Veritas, we want to enable readers to detect when an article is focused on credible information 
+                    sharing vs. when the focus is on manipulating or influencing of the reader by means other than the facts. <br><br>
+
+                    Fear, anger, sensationalism don’t mix well with getting to the truth. The mission of Project Veritas is to empower the 
+                    public with tools to isolate just the facts.
+                </p>
+
+                <h3  class="mt-5">Who is Veritas?</h3>
+                <p class="text-justify mt-4">
+                    Veritas is the Project Veritas' AI. Veritas has been trained to read the articles you send us and give you “Veritas’s opinion” on the article.
+                    <br><br>
+                    We trained Walt by letting it read millions of documents. These documents included journalism and scientific journal articles, 
+                    satire articles, narrative fiction, opinion pieces, blogs, politically leaning news and even hate speech examples 
+                    (Veritas did not enjoy reading the hate speech).
+                    <br><br>
+                    Veritas is still learning all the time. If you send ProjectVeritas an article and you think Veritas’s opinion wasn't quite right, please 
+                    let us know, we will include that feedback as Veritas continues to learn and develop.
+                </p>            
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+
+            

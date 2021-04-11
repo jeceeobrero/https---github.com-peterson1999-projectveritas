@@ -8,6 +8,11 @@ html{
     background-color: transparent;    
 }
 
+.active{
+    background-color: #D9E8FF;
+    color: black;
+}
+
 .headerBlue{
     color: #367EE8;
 }
@@ -67,11 +72,10 @@ html{
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 958px) {
-    #sideBar{
-        width:300px;
-        position: absolute;
-        z-index: 1;
-    }
+.navbar-light .navbar-toggler {
+    border-color:white !important;
 }
 
+.navbar-toggler:focus{
+    border-color: rgba(21, 21, 21, 0.5);
+}

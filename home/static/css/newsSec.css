@@ -1,0 +1,35 @@
+#newsSec{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.active{
+    background-color: #D9E8FF;
+}
+
+@media only screen and (max-width: 480px) {
+    #newsSec{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+    }
+    #newsSec{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+@media only screen and (min-width: 769px) and (max-width: 980px) {
+    #newsSec{
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+}
+
+@media only screen and (min-width: 981px) {
+    #newsSec{
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}

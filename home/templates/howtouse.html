@@ -1,0 +1,104 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/newsSec.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
+    <div id="newsSec">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <span><h2 class="font-weight-bold">How Does it Work?</h2></span>
+            </div>
+        </div>
+        <div class="border border-0 rounded mt-4 p-0">
+            <h3>How can Veritas tell what’s True and what’s Not?</h3>
+            <p class="text-justify mt-4">
+                Veritas will never tell you if an article is True or Not. That’s not Veritas' job.
+                <br><br>
+                Or philosophy at Project Veritas is that the best judge of Truth from Fiction is you. Veritas' job is to read what you 
+                give us carefully and to let you know what kind of article it is. Is the article biased or does it give a measured 
+                assessment? Is the article written in a way that focuses on facts, or is it written with an agenda? Does the writing 
+                style use manipulative persuasion or is written in a way that provides you with the information to draw your own conclusions?
+                <br><br>
+                If something sounds fishy about an article Veritas will tell you it sounds fishy, and leave it up to you to do more research 
+                to find multiple sources of information that focus on the facts. Veritas is not a magic truth machine, but you can use Veritas 
+                to make it easier to sort out the truth yourself.
+            </p>
+
+            <h3 class="mt-5">Understanding Project Veritas' Credibility Metrics</h3>
+            <ul class="mt-4">
+                <li class="mt-4">
+                    <h5>Journalism</h5>
+                    <p class="text-justify mt-3">
+                        <span class="font-weight-bold">Journalism checks the content and determines whether or not it follows current journalism ethics, standards, 
+                        and practices. It checks grammar, spelling, vocabulary,and other qualities that measure professionalism.</span>
+                        It focuses on sharing information. These articles do not attempt to persuade or influence the 
+                        reader by means other than presentation of facts. Journalistic articles avoid opinionated, sensational 
+                        or suspect commentary. Good journalism does not draw conclusions for the reader unless manifestly supported 
+                        by the presented evidence. Journalistic articles can make mistakes, including reporting statements that are 
+                        later discovered to be false, however the mark of good journalism is responsiveness to new information 
+                        (via a follow up articles or a retraction) especially if it countermands previously reported claims.
+                    </p>
+                </li>
+                <li class="mt-4">
+                    <h5>Sensational</h5>
+                    <p class="text-justify mt-3">
+                        <span class="font-weight-bold">Sensational checks the news article’s headline and detect exaggeration of information by comparing 
+                            it with similar articles that cover the same topic that have already been graded.
+                        </span>
+                        Sensational articles provoke public interest or excitement in a given subject matter. Sensational articles 
+                        tend to leveraging emotionally charged language, imagery, or characterizations to achieve this goal. While 
+                        sensational articles do not necessarily make false claims, informing the reader is not the primary goal, and 
+                        the presentation of claims made in sensational articles can often be at the expense of accuracy.
+                    </p>
+                </li>
+                <li class="mt-4">
+                    <h5>Satire</h5>
+                    <p class="text-justify mt-3">
+                        <span class="font-weight-bold">
+                        Satire recognizes patterns in the content of the article and detect sarcasm in the article.
+                        </span>
+                        Satirical articles are characteristically humorous, leveraging exaggeration, absurdity, or irony often intending 
+                        to critique or ridicule a target. Claims in works of satire may be intentionally false or misleading, tacitly 
+                        presupposing the use of exaggeration or absurdity as a rhetorical technique. Satirical articles can often be written 
+                        in a journalistic voice or style for humorous intent.
+                    </p>
+                </li>
+                <li class="mt-4">
+                    <h5>Opinion</h5>
+                    <p class="text-justify mt-3">
+                        <span class="font-weight-bold">
+                            Opinion measures how objective the article is written and how free it is of journalistic bias. Certain keywords 
+                            are searched in the content of the article to gauge the writing’s objectivity. Through previous training, the 
+                            algorithm will have a list of words that it has found to constantly appear in biased/subjective writing.
+                        </span>
+                        Opinion pieces present the author’s judgments about a particular subject matter that are not necessarily based on facts 
+                        or evidence. Opinion pieces can be written in a journalistic style (as in “Op-Ed” sections of news publications). Claims 
+                        made in opinion pieces may not be verifiable by evidence or may draw conclusions that are not materially supported by the 
+                        available facts. Opinion pieces may or may not be political in nature, but often advocate for a particular position on a 
+                        controversial topic or polarized debate.
+                    </p>
+                </li>
+                <li class="mt-4">
+                    <h5>Reliability</h5>
+                    <p class="text-justify mt-3">
+                        <span class="font-weight-bold">
+                            Reliability makes basic fact-checking actions like checking the presence of citations, as well as the validity 
+                            of the citations and the cited sources, its timeliness, as well as the publications reputation.
+                        </span>
+                        A reliable source is one that provides a thorough, well-reasoned theory, argument, discussion, etc. based on strong evidence. 
+                        Scholarly, peer-reviewed articles or books -written by researchers for students and researchers. Original research, extensive 
+                        bibliography.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+            

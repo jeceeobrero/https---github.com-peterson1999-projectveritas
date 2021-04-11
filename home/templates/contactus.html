@@ -1,0 +1,31 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/newsSec.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
+        <div id="newsSec">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <span><h2 class="font-weight-bold">Try it Out!</h2></span>
+                </div>
+            </div>
+            <div class="border border-0 rounded mt-4 p-0">
+                <h3>Type some text and see what Veritas Says!</h3>
+            </div>
+            <form>
+                <div class="form-group my-3">
+                    <label for="exampleFormControlTextarea1">You must enter at least 100 words</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn bgBlue text-white mb-2 px-5">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+            
