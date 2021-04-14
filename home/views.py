@@ -4,17 +4,22 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 
 import requests
-from home.sample import *
+from home.sample import Sample
 import datetime
 
 # Create your views here.
 
+#flag = False
 
 class HomeIndexView(View):
+    
     def get(self, request):
+        #print(flag)
         url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units=metric&appid=97c08871353e0aee15a30d25127bcd1f'
         city = 'Cebu City'
+        #if not flag:
         r = requests.get(url.format(city)).json()
+            #flag = True
 
         city_weather = {
             'city': city,
@@ -44,8 +49,9 @@ class HomeIndexView(View):
             'icon4': r['list'][4]['weather'][0]['icon'],
 
         }
-
+        
         url2 = 'https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json&clean=1'
+        #if not flag:
         r2 = requests.get(url2.format()).json()
 
         icon = ""
@@ -64,6 +70,7 @@ class HomeIndexView(View):
         # print(phil_covid)
         context = {'city_weather': city_weather, 'phil_covid': phil_covid}
         print("hello")
+        #flag = True
         return render(request, 'home.html', context)
 
     def returnMonth(self, month_number):
@@ -75,7 +82,7 @@ class HomeIndexView(View):
         form = URLForm(request.POST)
         if form.is_valid():
             urlTest = request.POST.get("url")
-            print(sampletest(urlTest))
+            print(Sample.sampletest(Sample,urlTest))
             return redirect('home:article')
         else:
             print(form.errors)
