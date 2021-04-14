@@ -1,8 +1,10 @@
+from django.http.response import HttpResponse
+from home.forms import URLForm
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
 import requests
-
+from home.sample import *
 import datetime
 
 # Create your views here.
@@ -68,6 +70,16 @@ class HomeIndexView(View):
         datetime_object = datetime.datetime.strptime(month_number, "%m")
         month_name = datetime_object.strftime("%b")
         return month_name
+    
+    def post(self, request):
+        form = URLForm(request.POST)
+        if form.is_valid():
+            urlTest = request.POST.get("url")
+            print(sampletest(urlTest))
+            return redirect('home:article')
+        else:
+            print(form.errors)
+            return HttpResponse("Not Valid!")
 
 
 class CoronaIndexView(View):
@@ -150,3 +162,5 @@ class ArticleIndexView(View):
                    'satire_src': satire_src, 'sensational_src': sensational_src, 'reliable_src': reliable_src,
                    'overall_art_cred': overall_art_cred, 'overall_src_cred': overall_src_cred}
         return render(request, 'article.html', context)
+
+    

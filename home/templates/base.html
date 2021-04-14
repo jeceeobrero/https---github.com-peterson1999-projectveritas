@@ -36,12 +36,13 @@
         </button>
 
         <div class="navbar-collapse collapse" id="navbarNavDropdown" style="padding-left: 10%; padding-right: 10%;">
-            <form class="px-0 pt-3 container-fluid">
+            <form class="px-0 pt-3 container-fluid" method="post">
+                {% csrf_token %}
                 <div>
                     <div class="input-group">
-                        <input type="text" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
+                        <input type="text" name="url" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
                         <div class="input-group-append">
-                            <button class="btn bgBlue text-white" type="button">Check</button>
+                            <button class="btn bgBlue text-white" type="submit">Check</button>
                         </div>
                     </div>
                 </div>
