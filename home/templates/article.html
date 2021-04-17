@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block content %}
-
+<div id="loading">
+    <img id="loading-image" src="{% static 'images/ajax-loader.gif' %}" alt="Loading..." />
+</div>
 <div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
     <div id="newsSec">
         <div class="d-flex justify-content-between flex-nowrap">
@@ -110,4 +112,11 @@
 </div>
 {% endblock %}               
 
+{% block script %}
+    <script>
+        $(window).on('load',function() {
+            $('#loading').hide();
+        });
+    </script>
+{% endblock %}
             

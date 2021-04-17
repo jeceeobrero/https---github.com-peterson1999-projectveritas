@@ -25,13 +25,22 @@
     <!--START OF NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-light bg-white mt-4 mx-0 d-flex justify-content-between shadow-sm sticky-top ">
          
-        <a class="navbar-brand align-self-start pl-4">
-            <button class="toggler mr-3 d-inline" type="button" id="sideButton">
-                <span class="navbar-toggler-icon"></span>
-            </button> 
-            <a class="navbar-brand align-self-start" href="#"><h3 class="headerBlue font-weight-bold d-inline">project veritas</h3></a>
+        <button 
+            class="navbar-brand align-self-start pl-4 ml-3 toggler d-inline"
+            type="button" id="sideButton">
+            {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
+                <a href="../home/top"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
+            {% else %}
+                <span class="navbar-toggler-icon"></span>    
+            {% endif %}
+            
+        </button> 
+        <a class="navbar-brand align-self-start"
+            href="../home/top">
+           <h3 class="headerBlue font-weight-bold d-inline">project veritas</h3>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button 
+        class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="background-image: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');"></span>
         </button>
 
@@ -42,7 +51,7 @@
                     <div class="input-group">
                         <input type="text" name="url" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
                         <div class="input-group-append">
-                            <button class="btn bgBlue text-white" type="submit">Check</button>
+                            <button class="btn bgBlue text-white" type="submit" id="check">Check</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +110,9 @@
     
       <div class="row w-100 h-100 bg-blue m-0" id="wrapper">
             <!--START OF SIDEBAR-->
-            <div class="mt-2 pl-5 pr-2 pt-4 h-100" id="sideBar" style="z-index: 1;">
+            {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
+            {% else %}
+            <div class="mt-2 pl-5 pr-2 pt-4" id="sideBar" style="z-index: 1;">
                 <div style="width:250px" id="newsSecs">
                     <a href="../home/top" 
                     {% if request.path == '/home/top'  %} 
@@ -187,6 +198,7 @@
                     ><span><i class="bi bi-gear-wide-connected mr-4" title="Science"></i>Science</h6></a>
                 </div>
             </div>
+            {% endif %}
             <!--END OF SIDEBAR-->
             {% block content %}
             {% endblock %}
@@ -219,10 +231,15 @@
                 $("#sideBar").show();
             }
         });
-            
+
+        $('#check').click(function(){
+            document.getElementById("check").innerHTML = 'Checking <img src="{% static "images/ajax-loader.gif" %}">';
+            document.getElementById("check").style.backgroundColor = '#2862b8';
+        });
     });
 </script>
-
+{% block script %}
+{% endblock %}
 <!--MY JAVASCRIPT-->
 </body>
 </html>
