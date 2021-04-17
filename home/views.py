@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 
 import requests
-from home.sample import Sample
+from home.sample import Credibility
 import datetime
 
 # Create your views here.
@@ -290,7 +290,7 @@ class ArticleIndexView(View):
         url = None
         if val != None:
             url = val()
-            print(Sample.sampletest(Sample,url))
+            print(Credibility.credtest(Credibility,url))
         relevancy_art = 50.0
         opinion_art = 50.9
         satire_art = 51.5
