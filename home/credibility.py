@@ -93,8 +93,8 @@ class Credibility():
         article_sample = pd.DataFrame(article_list, columns = ['corpus', 'label'])
 
         article_sample= article_sample[article_sample['corpus'].notnull()]
-        max_length = self.get_max_length_url(self,article_sample)
-        sample_X, sample_Y = self.preprocess_url(self,article_sample,embed,max_length)
+        max_length = self.get_max_length(self,article_sample)
+        sample_X, sample_Y = self.preprocess(self,article_sample,embed,max_length)
         sarcasm_prediction = new_model.predict(sample_X)[0][1]
 
         return round(sarcasm_prediction*100,2)
