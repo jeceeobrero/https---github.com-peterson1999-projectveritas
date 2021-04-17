@@ -81,7 +81,7 @@ class Credibility():
         sample_X, sample_Y = self.preprocess_url(self,article_sample,embed,max_length)
         opinon_prediction = new_model.predict(sample_X)[0][1]
 
-        return opinon_prediction*100
+        return round(opinon_prediction*100,2)
 
     def sarcasmScore(self,sarcasm,embed,news_title):
         new_model=load_model(sarcasm)
@@ -97,7 +97,7 @@ class Credibility():
         sample_X, sample_Y = self.preprocess_url(self,article_sample,embed,max_length)
         sarcasm_prediction = new_model.predict(sample_X)[0][1]
 
-        return sarcasm_prediction*100
+        return round(sarcasm_prediction*100,2)
 
     def misleadingScore(self,misleading,embed,news_title):
         new_model=load_model(misleading)
@@ -111,7 +111,7 @@ class Credibility():
         sample_X, sample_Y = self.preprocess(self,article_sample,embed,max_length)
         misleading_prediction = new_model.predict(sample_X)[0][1]
 
-        return misleading_prediction*100
+        return round(misleading_prediction*100,2)
 
     def relevanceScore(article):
         today = date.datetime.now()

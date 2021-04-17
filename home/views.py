@@ -327,14 +327,14 @@ class ArticleIndexView(View):
 
         if val != None:
             url = val()
-            print(Credibility.credtest(Credibility, url))
+            #print(Credibility.credtest(Credibility, url))
             sensational_art, opinion_art, satire_art, relevancy_art, article_title, article_img = Credibility.loadCredibility(
                 Credibility, url)
 
         context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
-                   'satire_art': satire_art, 'sensational_art': sensational_art, 'reliable_art': reliable_art,
+                   'satire_art': satire_art, 'sensational_art': sensational_art, 
                    'relevancy_src': relevancy_src, 'opinion_src': opinion_src,
-                   'satire_src': satire_src, 'sensational_src': sensational_src, 'reliable_src': reliable_src,
+                   'satire_src': satire_src, 'sensational_src': sensational_src, 
                    'overall_art_cred': overall_art_cred, 'overall_src_cred': overall_src_cred,
                    'article_title': article_title, 'article_img': article_img}
         return render(request, 'article.html', context)

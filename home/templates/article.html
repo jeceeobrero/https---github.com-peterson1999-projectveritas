@@ -24,7 +24,7 @@
                 </a>
             </div>
             <div class="col">
-                <img class="border rounded" src="{% static 'images/news.jpg' %}" width=250>
+                <img class="border rounded" src={{article_img}} width=250>
             </div>
         </div>
 
@@ -39,32 +39,25 @@
                     <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{relevancy_art}}% Relevancy</h6>
                 </div>
                 <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Opinion</h6>
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Non-Opinion</h6>
                     <div class="col-xl-4 progress mx-3 px-0">
                         <div class="progress-bar" role="progressbar" style="width: {{opinion_art}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{opinion_art}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{opinion_art}}% Opinion</h6>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{opinion_art}}% Non-Opinion</h6>
                 </div>
                 <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Satire</h6>
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Non-Satire</h6>
                     <div class="col-xl-4 progress mx-3 px-0">
                         <div class="progress-bar" role="progressbar" style="width: {{satire_art}}%; background-color: blueviolet;" aria-valuenow="{{satire_art}}" aria-valuemin="0" aria-valuemax="100" ></div>
                     </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{satire_art}}% Satire</h6>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{satire_art}}% Non-Satire</h6>
                 </div>
                 <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Sensational</h6>
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Nonsensational</h6>
                     <div class="col-xl-4 progress mx-3 px-0">
                         <div class="progress-bar" role="progressbar" style="width: {{sensational_art}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{sensational_art}}" aria-valuemin="0" aria-valuemax="100" ></div>
                     </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{sensational_art}}% Sensational</h6>
-                </div>
-                <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Reliable</h6>
-                    <div class="col-xl-4 progress mx-3 px-0">
-                        <div class="progress-bar" role="progressbar" style="width: {{reliable_art}}%; background-color: orange;" aria-valuenow="{{reliable_art}}" aria-valuemin="0" aria-valuemax="100" ></div>
-                    </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{reliable_art}}% Reliable</h6>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{sensational_art}}% Nonsensational</h6>
                 </div>
                 <div class="row mt-4 pl-3">
                     <h4 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h4>
@@ -81,32 +74,25 @@
                     <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{relevancy_src}}% Relevancy</h6>
                 </div>
                 <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Opinion</h6>
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Non-Opinion</h6>
                     <div class="col-xl-4 progress mx-3 px-0">
                         <div class="progress-bar" role="progressbar" style="width: {{opinion_src}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{opinion_src}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{opinion_src}}% Opinion</h6>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{opinion_src}}% Non-Opinion</h6>
                 </div>
                 <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Satire</h6>
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Non-Satire</h6>
                     <div class="col-xl-4 progress mx-3 px-0">
                         <div class="progress-bar" role="progressbar" style="width: {{satire_src}}%; background-color: blueviolet;" aria-valuenow="{{satire_src}}" aria-valuemin="0" aria-valuemax="100" ></div>
                     </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{satire_src}}% Satire</h6>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{satire_src}}% Non-Satire</h6>
                 </div>
                 <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Sensational</h6>
+                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Nonsensational</h6>
                     <div class="col-xl-4 progress mx-3 px-0">
                         <div class="progress-bar" role="progressbar" style="width: {{sensational_src}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{sensational_src}}" aria-valuemin="0" aria-valuemax="100" ></div>
                     </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{sensational_src}}% Sensational</h6>
-                </div>
-                <div class="row mt-2">
-                    <h6 class="col-md-3 pl-3 text-dark font-weight-bold">Reliable</h6>
-                    <div class="col-xl-4 progress mx-3 px-0">
-                        <div class="progress-bar" role="progressbar" style="width: {{reliable_src}}%; background-color: orange;" aria-valuenow="{{reliable_src}}" aria-valuemin="0" aria-valuemax="100" ></div>
-                    </div>
-                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{reliable_src}}% Reliable</h6>
+                    <h6 class="mb-1 mx-2 pl-2 text-dark my-0 py-0">{{sensational_src}}% Nonsensational</h6>
                 </div>
                 <div class="row mt-4 pl-3">
                     <h4 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h4>
