@@ -9,6 +9,7 @@ from tensorflow.keras.models import Model
 from keras.models import load_model
 from newspaper import Article
 import datetime as date
+from dateutil import parser as dateutil_parser
 import os
 import hashlib
 
@@ -19,13 +20,19 @@ class Credibility():
         #embed = tf.saved_model.load('home\saved_model.pb')
         #os.environ["TFHUB_MODEL_LOAD_FORMAT"] = "UNCOMPRESSED"
         os.environ["TFHUB_CACHE_DIR"] = 'D:/Dev/News Aggregator/tmp/tfhub'
+        print("success1")
         handle = "https://tfhub.dev/google/Wiki-words-250/2"
+        print("success2")
         hashlib.sha1(handle.encode("utf8")).hexdigest()
+        print("success3")
         embed = hub.load("https://tfhub.dev/google/Wiki-words-250/2")
+        print("success4")
+        nltk.download('punkt')
 
         misleading = 'home\model_misleading.h5'
         opinion = 'home\model_opinion.h5'
         sarcasm = 'home\model_sarcasm.h5'
+        sarcasm_text='home\model_sarcasm_text.h5'
 
         print("Here 2:parse article and build model")
         article = Article(url)
@@ -33,6 +40,9 @@ class Credibility():
         article.parse()
         news_title = article.title
         news_image = article.top_image
+        article.nlp()
+        news_summary = article.summary
+        news_date=article.publish_date
 
         model = Sequential()
         model.add(LSTM(32))
@@ -54,17 +64,32 @@ class Credibility():
         #print('Predicted class: ', prediction)
        # print('Real class:  ', sample_Y)
 
+        print("Here 4.2:load sarcasm text model")
+        sarcasm_text_prediction = self.sarcasm_text_Score(
+            self, sarcasm_text, embed, news_summary)
+        #print('Predicted class: ', prediction)
+       # print('Real class:  ', sample_Y)
+
         print("Here 5:load misleading model")
         misleading_prediction = self.misleadingScore(
             self, misleading, embed, news_title)
         #print('Predicted class: ', misleading_prediction)
         #print('Real class:  ', sample_Y)
+
         print("Here 6: get relevance score")
-        rel_score = self.relevanceScore(article)
+        #days = 0
+        rel_score, days = self.relevanceScore(self,news_date)
+        if news_date == None:
+            days = None
         overall_score = round((misleading_prediction +
                                opinion_prediction + sarcasm_prediction + rel_score)/4, 2)
+        print("misleading: "+ str(misleading_prediction))
+        print("opinion: "+ str(opinion_prediction))
+        print("sarcasm: "+ str(sarcasm_prediction))
+        print("sarcasm_text: "+ str(sarcasm_text_prediction))
+        print("relevancy: "+ str(rel_score))
 
-        return misleading_prediction, opinion_prediction, sarcasm_prediction, rel_score, overall_score, news_title, news_image
+        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days
 
     def opinionScore(self, opinion, url, embed):
         new_model = load_model(opinion)
@@ -98,6 +123,23 @@ class Credibility():
         max_length = self.get_max_length(self, article_sample)
         sample_X, sample_Y = self.preprocess(
             self, article_sample, embed, max_length)
+        sarcasm_text_prediction = new_model.predict(sample_X)[0][1]
+
+        return round(sarcasm_text_prediction*100, 2)
+
+    def sarcasm_text_Score(self, sarcasm_text, embed, news_summary):
+        new_model = load_model(sarcasm_text)
+        new_model.summary()
+
+        article_list = {'corpus': [news_summary],
+                        'label': [1]
+                        }
+        article_sample = pd.DataFrame(
+            article_list, columns=['corpus', 'label'])
+
+        article_sample = article_sample[article_sample['corpus'].notnull()]
+        max_length = self.get_max_length(self, article_sample)
+        sample_X, sample_Y = self.preprocess(self, article_sample, embed, max_length)
         sarcasm_prediction = new_model.predict(sample_X)[0][1]
 
         return round(sarcasm_prediction*100, 2)
@@ -118,11 +160,14 @@ class Credibility():
 
         return round(misleading_prediction*100, 2)
 
-    def relevanceScore(article):
+    def relevanceScore(self,news_date):
         today = date.datetime.now()
-        newsDate = article.publish_date
+        print(today)
 
-        if (newsDate != None):
+        if (news_date != None):
+            newsDate = dateutil_parser.parse(str(news_date))
+            newsDate = newsDate.replace(tzinfo=None)
+            print(newsDate)
             rel = today - newsDate
             d = rel.days
             score = 100
@@ -130,7 +175,6 @@ class Credibility():
         else:
             d = 0
             score = 50
-
         #score = 100
         multiplier = 1
 
@@ -149,7 +193,7 @@ class Credibility():
         if rel_score < 0:
             rel_score = 0
 
-        return rel_score
+        return rel_score, d
 
     def get_max_length_url(self, df):
         """

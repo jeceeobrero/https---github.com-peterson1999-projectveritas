@@ -314,6 +314,7 @@ class ArticleIndexView(View):
         url = None
         article_title = "Health experts want longer lockdown in Metro Manila"
         article_img = None
+        article_date = None
         relevancy_art = 50.0
         opinion_art = 50.9
         satire_art = 51.5
@@ -328,7 +329,7 @@ class ArticleIndexView(View):
         if val != None:
             url = val()
             #print(Credibility.credtest(Credibility, url))
-            sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img = Credibility.loadCredibility(
+            sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date = Credibility.loadCredibility(
                 Credibility, url)
 
         context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
@@ -336,7 +337,8 @@ class ArticleIndexView(View):
                    'relevancy_src': relevancy_src, 'opinion_src': opinion_src,
                    'satire_src': satire_src, 'sensational_src': sensational_src,
                    'overall_art_cred': overall_art_cred, 'overall_src_cred': overall_src_cred,
-                   'article_title': article_title, 'article_img': article_img}
+                   'article_title': article_title, 'article_img': article_img,
+                   'article_date': article_date}
         return render(request, 'article.html', context)
 
     def post(self, request):
