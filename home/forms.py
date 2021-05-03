@@ -1,4 +1,7 @@
 from django import forms
+from .models import Article
 
-class URLForm(forms.Form):
-    url = forms.CharField(label='url', max_length=500)
+class URLForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['url',]
