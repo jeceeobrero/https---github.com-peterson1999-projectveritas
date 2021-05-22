@@ -5,6 +5,7 @@ from django.views.generic import View
 
 import requests
 from home.credibility import Credibility
+from home.models import Article
 import datetime
 
 # Create your views here.
@@ -52,25 +53,25 @@ class HomeIndexView(View):
 
         }
 
-        url2 = 'https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json&clean=1'
-        # if not flag:
-        r2 = requests.get(url2.format()).json()
+        # url2 = 'https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json&clean=1'
+        # # if not flag:
+        # r2 = requests.get(url2.format()).json()
 
-        icon = ""
-        if r2[-1]['infected'] >= r2[-2]['infected']:
-            icon = "bi bi-arrow-up-right"
-        else:
-            icon = "bi bi-arrow-down-left"
+        # icon = ""
+        # if r2[-1]['infected'] >= r2[-2]['infected']:
+        #     icon = "bi bi-arrow-up-right"
+        # else:
+        #     icon = "bi bi-arrow-down-left"
 
-        phil_covid = {
-            'infected':  format(r2[-1]['infected'], ',d'),
-            'icon': icon,
-            'active': format(r2[-1]['activeCases'], ',d'),
-            'recovered': format(r2[-1]['recovered'], ',d'),
-            'deceased': format(r2[-1]['deceased'], ',d'),
-        }
+        # phil_covid = {
+        #     'infected':  format(r2[-1]['infected'], ',d'),
+        #     'icon': icon,
+        #     'active': format(r2[-1]['activeCases'], ',d'),
+        #     'recovered': format(r2[-1]['recovered'], ',d'),
+        #     'deceased': format(r2[-1]['deceased'], ',d'),
+        # }
         # print(phil_covid)
-        context = {'city_weather': city_weather, 'phil_covid': phil_covid}
+        context = {'city_weather': city_weather,} #'phil_covid': phil_covid}
         #flag = True
         return render(request, 'home.html', context)
 
@@ -310,11 +311,19 @@ class ContactIndexView(View):
 
 
 class ArticleIndexView(View):
+   
+
     def get(self, request):
+      
+        return render(request, 'article.html')
+
+    def post(self, request):
+        form = URLForm(request.POST)
         url = None
         article_title = "Health experts want longer lockdown in Metro Manila"
         article_img = None
         article_date = None
+        topic = None
         relevancy_art = 50.0
         opinion_art = 50.9
         satire_art = 51.5
@@ -326,30 +335,26 @@ class ArticleIndexView(View):
         sensational_src = 95.6
         overall_src_cred = 85
 
-        if val != None:
-            url = val()
-            #print(Credibility.credtest(Credibility, url))
-            sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date = Credibility.loadCredibility(
-                Credibility, url)
+        if form.is_valid():
+            
+            urlTest = request.POST.get("url")
 
-        context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
+            #print(Credibility.credtest(Credibility, url))
+            sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date,topic = Credibility.loadCredibility(
+                Credibility, urlTest)
+           
+            form = Article(credibility_score=overall_art_cred,relevancy_score=relevancy_art,nonopinion_score=opinion_art,nonsatire_score=satire_art,nonsensational_score=sensational_art,topic=topic,url=urlTest)
+            form.save()
+
+            context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
                    'satire_art': satire_art, 'sensational_art': sensational_art,
                    'relevancy_src': relevancy_src, 'opinion_src': opinion_src,
                    'satire_src': satire_src, 'sensational_src': sensational_src,
                    'overall_art_cred': overall_art_cred, 'overall_src_cred': overall_src_cred,
                    'article_title': article_title, 'article_img': article_img,
                    'article_date': article_date}
-        return render(request, 'article.html', context)
 
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('home:article')
+            return render(request, 'article.html', context)
         else:
             print(form.errors)
             return HttpResponse("Not Valid!")

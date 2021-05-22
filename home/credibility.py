@@ -43,7 +43,7 @@ class Credibility():
         article.nlp()
         news_summary = article.summary
         news_date=article.publish_date
-
+        news_topic = article.keywords
         model = Sequential()
         model.add(LSTM(32))
         model.add(Dense(2, activation='softmax'))
@@ -89,7 +89,7 @@ class Credibility():
         print("sarcasm_text: "+ str(sarcasm_text_prediction))
         print("relevancy: "+ str(rel_score))
 
-        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days
+        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days,news_topic
 
     def opinionScore(self, opinion, url, embed):
         new_model = load_model(opinion)
@@ -326,3 +326,28 @@ class Credibility():
         misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image = self.loadCredibility(
             self, urlTest)
         return misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image
+
+    def getTitle(self, url):
+        article = Article(url)
+        article.download()
+        article.parse()
+        news_title = article.title
+        return news_title
+
+    def getDate(self, url):
+        article = Article(url)
+        article.download()
+        article.parse()
+        news_date=article.publish_date
+        print(news_date)
+        d = None
+        if (news_date != None):
+            today = date.datetime.now()
+            newsDate = dateutil_parser.parse(str(news_date))
+            newsDate = newsDate.replace(tzinfo=None)
+            print(newsDate)
+            rel = today - newsDate
+            d = rel.days
+
+        return d
+    
