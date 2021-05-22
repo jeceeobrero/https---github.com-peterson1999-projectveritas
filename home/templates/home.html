@@ -184,11 +184,12 @@
                         </div>
                         <div class="col">
                             <h5 class="card-text my-1">April</h5>
-                            <h4 class="card-text">{{ phil_covid.infected }} Total Cases <i class="{{ phil_covid.icon }} text-success"></i> </h4>
+                            <h4 class="card-text my-0 py-0 font-weight-bold">{{ phil_covid.infected }}</h4>    
+                            <h4 class="my-0 py-0">Total Cases <i class="{{ phil_covid.icon }} text-success"></i> </h4>
                         </div>
                 </div>
                 <br>
-                <div class="row d-flex px-2 mt-2">
+                <div class="row d-flex px-2 mt-0">
                     <div class="col bg-danger p-2 mx-1 my-1 round" style="border-radius: 5px;">
                         <h6 class="card-text my-1 text-white text-center">Active Cases</h6>
                         <h6 class="card-text text-white text-center font-weight-bold">{{ phil_covid.active}}</h6>

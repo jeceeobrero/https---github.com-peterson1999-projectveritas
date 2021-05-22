@@ -11,6 +11,9 @@ class Article(models.Model):
     topic = models.CharField(max_length=500)
     url = models.CharField(max_length=1000)
 #    source = models.ForeignKey(Source,on_delete = models.CASCADE)
+class Keywords(models.Model):
+    topic = models.CharField(max_length=100)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
 
 #class Source(models.Model):
 #    credibility_score = models.FloatField()
