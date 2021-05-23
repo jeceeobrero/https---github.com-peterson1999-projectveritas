@@ -45,53 +45,64 @@
         </button>
 
         <div class="navbar-collapse collapse" id="navbarNavDropdown" style="padding-left: 10%; padding-right: 10%;">
-            <form class="px-0 pt-3 container-fluid" method="post">
-                {% csrf_token %}
-                <div>
-                    <div class="input-group">
-                        <input type="text" name="url" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
-                        <div class="input-group-append">
-                            <button class="btn bgBlue text-white" type="submit" id="check" name="check">Check</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="my-2 form-inline d-flex flex-nowrap justify-content-between">
-                    <div class="d-none d-sm-none d-md-block d-lg-block">
-                        <div class="input-group">
-                            <input type="text" name="searchbox" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn bgBlue text-white" type="submit" id="search" name="search">Search</button>
+            <div class="row">
+                <div class = "col-12">
+                <div class="px-0 pt-3 container-fluid">
+                    <form  action = "{% url 'article:article' %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <div class="input-group">
+                                <input type="text" name="url" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
+                                <div class="input-group-append">
+                                    <button class="btn bgBlue text-white" type="submit" id="check" name="check">Check</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
-                    <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
-                    <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
+                    </form>
                 </div>
-
-                <div class="mt-2 d-none d-sm-none d-md-block d-lg-none">
-                    <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
-                    <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
-                </div>
-
-                <div class="mt-2 d-block d-sm-block d-md-none">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn bgBlue text-white" type="button">Search</button>
+            </div>
+            <div class = "col-12">
+                <div class="px-0 pt-3 container-fluid">
+                    <form  action = "{% url 'search:search' %}" method="post">
+                        {% csrf_token %}
+                        <div class="my-2 form-inline d-flex flex-nowrap justify-content-between">
+                            <div class="d-none d-sm-none d-md-block d-lg-block">
+                                <div class="input-group">
+                                    <input type="text" name="topic" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn bgBlue text-white" type="submit" id="search" name="search">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
+                            <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
+                            <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
                         </div>
-                    </div>
+
+                        <div class="mt-2 d-none d-sm-none d-md-block d-lg-none">
+                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
+                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
+                        </div>
+
+                        <div class="mt-2 d-block d-sm-block d-md-none">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn bgBlue text-white" type="button">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 d-block d-sm-block d-md-none">
+                            <a class="px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
+                            <a class="px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
+                            <a class="px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
+                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
+                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
+                        </div>    
+                    </form>
                 </div>
-                <div class="mt-2 d-block d-sm-block d-md-none">
-                    <a class="px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
-                    <a class="px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
-                    <a class="px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
-                    <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
-                    <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
                 </div>
-                
-            </form>
+            </div>
         </div>
 
         <div class="align-self-start d-none d-sm-none d-md-none d-lg-block">

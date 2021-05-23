@@ -29,10 +29,10 @@ class Credibility():
         print("success4")
         nltk.download('punkt')
 
-        misleading = 'home\model_misleading.h5'
-        opinion = 'home\model_opinion.h5'
-        sarcasm = 'home\model_sarcasm.h5'
-        sarcasm_text='home\model_sarcasm_text.h5'
+        misleading = 'article\model_misleading.h5'
+        opinion = 'article\model_opinion.h5'
+        sarcasm = 'article\model_sarcasm.h5'
+        sarcasm_text='article\model_sarcasm_text.h5'
 
         print("Here 2:parse article and build model")
         article = Article(url)
