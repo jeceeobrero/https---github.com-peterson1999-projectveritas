@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse
-from home.forms import URLForm
+#from home.forms import URLForm
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
@@ -12,7 +12,7 @@ import datetime
 # Create your views here.
 val = None
 
-class HomeIndexView(View):
+""" class HomeIndexView(View):
     def get(self, request):
         flag = False
         url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units=metric&appid=97c08871353e0aee15a30d25127bcd1f'
@@ -83,7 +83,7 @@ class HomeIndexView(View):
             else:
                 print("home")
                 print(form.errors)
-                return HttpResponse("Not Valid!")
+                return HttpResponse("Not Valid!") """
 
 
 class CoronaIndexView(View):

@@ -1,3 +1,4 @@
+from article.credibility import Credibility
 from django.db import models
 
 # Create your models here.
@@ -29,3 +30,6 @@ class Article(models.Model):
 
     def getArticle(art_id):
         return Article.objects.get(id = art_id)
+
+    def getArticleAll():
+        return Article.objects.order_by('-credibility_score')
