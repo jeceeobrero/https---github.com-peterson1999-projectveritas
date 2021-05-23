@@ -304,7 +304,7 @@ class ContactIndexView(View):
 class ArticleIndexView(View):
     def get(self, request):
         return render(request, 'article.html')
-
+#vaaaaaaars
 #change name of post
     def post(self, request):
         if "check" in request.POST:
@@ -379,13 +379,15 @@ class ArticleIndexView(View):
 
 
             article_titles = []
-            # article_imgs = []
+            article_imgs = []
             article_dates = []
 
             for x in range(len(articles)):
                 for y in articles[x]:
-                    article_titles.append(Credibility.getTitle(Credibility, y.url))
-                    article_dates.append(Credibility.getDate(Credibility,y.url))
+                    title, days, image = Credibility.getTID(Credibility, y.url)
+                    article_titles.append(title)
+                    article_dates.append(days)
+                    article_imgs.append(image)
             # for x in range(len(articles)):
             #     for y in articles[x]:
             #         relevancy_arts.append(y.relevancy_score)
@@ -397,7 +399,7 @@ class ArticleIndexView(View):
             # context = {'relevancy_art': relevancy_arts, 'opinion_art': opinion_arts,
             #         'satire_art': satire_arts, 'sensational_art': sensational_arts,
             #         'overall_art_cred': overall_art_creds}
-            xlist = zip(articles,article_titles, article_dates)
+            xlist = zip(articles,article_titles, article_dates, article_imgs)
 
             context = {
                 'articles': xlist,

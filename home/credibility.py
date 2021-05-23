@@ -350,4 +350,22 @@ class Credibility():
             d = rel.days
 
         return d
-    
+
+    def getTID(self, url):
+        article = Article(url)
+        article.download()
+        article.parse()
+        news_title = article.title
+        news_image = article.top_image
+        news_date=article.publish_date
+        print(news_date)
+        d = None
+        if (news_date != None):
+            today = date.datetime.now()
+            newsDate = dateutil_parser.parse(str(news_date))
+            newsDate = newsDate.replace(tzinfo=None)
+            print(newsDate)
+            rel = today - newsDate
+            d = rel.days
+
+        return news_title, d, news_image

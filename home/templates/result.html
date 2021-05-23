@@ -14,23 +14,29 @@
         </div>
 
         <div class="list-group">
-            {% for article, titles,dates in articles %}
+            {% for article, titles,dates,images in articles %}
                 {% for y in article %}
-                    <a href="../home/article" class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                    <div href="../home/article" class="list-group-item list-group-item-action flex-column align-items-start mt-3">
                         <div class="row d-flex flex-nowrap">
                             <div class="col-xs-8 mx-3">
-                                <h5 class="mb-1 text-dark">{{titles}} <span class="badge badge-primary badge-pill">{{y.credibility_score}}% Credible</span></h5>
+                                <a href="{{y.url}}" class="mb-1 text-dark font-weight-bold">{{titles}} <span class="badge badge-primary badge-pill">{{y.credibility_score}}% Credible</span></a>
                                 <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>    
-                                    {% if article_date != None %}
+                                    {% if dates != None %}
                                     <small>{{dates}}</small>
                                     {% endif %}
                                 </p>
+                                <a href="#">
+                                    <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
+                                    <i class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                                </a>
                             </div>
-                            <div class="col-xs-2 mx-3 align-self-center ml-auto">
-                                <i class="bi bi-caret-right-fill" title="Go "></i>
-                            </div>
+                            <img class="border rounded mx-3" src="{{images}}" width=25%>
                         </div>
-                    </a>
+                        
+                    </div>
+                    <form>
+                        <p class="d-none">{{y.id}}</p>
+                    </form>
                 {% endfor %}
             {% endfor %}
             
