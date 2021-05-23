@@ -236,6 +236,11 @@
             document.getElementById("check").innerHTML = 'Checking <img src="{% static "images/ajax-loader.gif" %}">';
             document.getElementById("check").style.backgroundColor = '#2862b8';
         });
+
+        $('.showDropdown').click(function() {
+            var this_id = $(this).attr('id');
+            $('#dropIcon-'+this_id).toggleClass("bi-caret-up-fill bi-caret-down-fill");
+        });
     });
 </script>
 {% block script %}
