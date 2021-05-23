@@ -1,4 +1,5 @@
 from django.http.response import HttpResponse
+from numpy.lib.function_base import append
 from home.forms import URLForm
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -10,6 +11,7 @@ import datetime
 
 # Create your views here.
 val = None
+
 
 class HomeIndexView(View):
     def get(self, request):
@@ -25,7 +27,7 @@ class HomeIndexView(View):
             'temperature': r['list'][0]['main']['temp'],
             'description': r['list'][0]['weather'][0]['description'],
             'icon': r['list'][0]['weather'][0]['icon'],
-            
+
             'dt1': datetime.datetime.strptime(str(r['list'][1]['dt_txt'][5:7]), "%m").strftime("%b") + " " + r['list'][1]['dt_txt'][8:10],
             'temperature1': r['list'][1]['main']['temp'],
             'description1': r['list'][1]['weather'][0]['description'],
@@ -66,16 +68,30 @@ class HomeIndexView(View):
             'deceased': format(r2[-1]['Deaths'], ',d'),
         }
 
-        context = {'city_weather': city_weather,'phil_covid': phil_covid}
+        top_articles = Article.objects.all().order_by(
+            '-credibility_score')[:10]
+        titles = []
+        dates = []
+        images = []
+        for article in top_articles:
+            title, date, image = Credibility.getTID(Credibility, article.url)
+            titles.append(title)
+            dates.append(date)
+            images.append(image)
+
+        articleList = zip(top_articles, titles, dates, images)
+        context = {'city_weather': city_weather,
+                   'phil_covid': phil_covid, 'top_articles': articleList}
         flag = True
         return render(request, 'home.html', context)
-    
+
     def post(self, request):
         if "check" in request.POST:
             form = URLForm(request.POST)
             if form.is_valid():
                 urlTest = request.POST.get("url")
                 global val
+
                 def val():
                     return urlTest
                 return redirect('home:article')
@@ -304,8 +320,9 @@ class ContactIndexView(View):
 class ArticleIndexView(View):
     def get(self, request):
         return render(request, 'article.html')
-#vaaaaaaars
-#change name of post
+# vaaaaaaars
+# change name of post
+
     def post(self, request):
         if "check" in request.POST:
             print("g")
@@ -330,20 +347,21 @@ class ArticleIndexView(View):
 
                 urlTest = request.POST.get("url")
                 #print(Credibility.credtest(Credibility, url))
-                sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date,topic = Credibility.loadCredibility(
-                    Credibility, urlTest)           
-                form = Article(credibility_score=overall_art_cred,relevancy_score=relevancy_art,nonopinion_score=opinion_art,nonsatire_score=satire_art,nonsensational_score=sensational_art,topic=topic,url=urlTest)             
+                sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img, article_date, topic = Credibility.loadCredibility(
+                    Credibility, urlTest)
+                form = Article(credibility_score=overall_art_cred, relevancy_score=relevancy_art, nonopinion_score=opinion_art,
+                               nonsatire_score=satire_art, nonsensational_score=sensational_art, topic=topic, url=urlTest)
                 form.save()
                 for x in topic:
-                    keyword= Keywords(topic=x, article=form)
+                    keyword = Keywords(topic=x, article=form)
                     keyword.save()
                 context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
-                    'satire_art': satire_art, 'sensational_art': sensational_art,
-                    'relevancy_src': relevancy_src, 'opinion_src': opinion_src,
-                    'satire_src': satire_src, 'sensational_src': sensational_src,
-                    'overall_art_cred': overall_art_cred, 'overall_src_cred': overall_src_cred,
-                    'article_title': article_title, 'article_img': article_img,
-                    'article_date': article_date}
+                           'satire_art': satire_art, 'sensational_art': sensational_art,
+                           'relevancy_src': relevancy_src, 'opinion_src': opinion_src,
+                           'satire_src': satire_src, 'sensational_src': sensational_src,
+                           'overall_art_cred': overall_art_cred, 'overall_src_cred': overall_src_cred,
+                           'article_title': article_title, 'article_img': article_img,
+                           'article_date': article_date}
 
                 return render(request, 'article.html', context)
             else:
@@ -351,32 +369,31 @@ class ArticleIndexView(View):
                 print(form.errors)
                 return HttpResponse("Not Valid!")
 
-        elif 'search' in request.POST:            
+        elif 'search' in request.POST:
             searchname = request.POST.get("searchbox", None)
-            keywordobjects=Keywords.objects.filter(topic=searchname)
-            articles=[]
+            keywordobjects = Keywords.objects.filter(topic=searchname)
+            articles = []
             for x in keywordobjects:
                 print(x.article_id)
-                articles.append(Article.objects.filter(id=x.article_id))     
+                articles.append(Article.objects.filter(id=x.article_id))
             print(keywordobjects)
-            flag=0
-            temp=-1  
-            i=0
-            while i < len(articles): 
-                j=i+1 
-                for x in articles[i]: 
-                    comp1= x
+            flag = 0
+            temp = -1
+            i = 0
+            while i < len(articles):
+                j = i+1
+                for x in articles[i]:
+                    comp1 = x
                 while j < len(articles):
-                    for y in articles[j]: 
-                        comp2= y
+                    for y in articles[j]:
+                        comp2 = y
                     if comp1.credibility_score < comp2.credibility_score:
                         print("DASDAS")
                         temp = articles[i]
-                        articles[i]=articles[j]
-                        articles[j]=temp
-                    j+=1
-                i+=1
-
+                        articles[i] = articles[j]
+                        articles[j] = temp
+                    j += 1
+                i += 1
 
             article_titles = []
             article_imgs = []
@@ -399,16 +416,15 @@ class ArticleIndexView(View):
             # context = {'relevancy_art': relevancy_arts, 'opinion_art': opinion_arts,
             #         'satire_art': satire_arts, 'sensational_art': sensational_arts,
             #         'overall_art_cred': overall_art_creds}
-            xlist = zip(articles,article_titles, article_dates, article_imgs)
+            xlist = zip(articles, article_titles, article_dates, article_imgs)
 
             context = {
                 'articles': xlist,
             }
 
-            #print(relevancy_arts)
-            #print(""+str(relevancy_arts[0]))
+            # print(relevancy_arts)
+            # print(""+str(relevancy_arts[0]))
             print(articles[0][0].id)
-            
+
             print(searchname)
             return render(request, 'result.html', context)
-            
