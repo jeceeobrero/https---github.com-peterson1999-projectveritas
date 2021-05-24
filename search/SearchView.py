@@ -66,4 +66,4 @@ class SearchView(View):
             return render(request, 'result.html', context)
 
     def getArticles(article_id):
-        return Article.objects.filter(id=article_id)
+        return Article.getArticle(article_id)

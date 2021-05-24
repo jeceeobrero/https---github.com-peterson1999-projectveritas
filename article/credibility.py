@@ -19,7 +19,7 @@ class Credibility():
         print("Here 1:load everything")
         #embed = tf.saved_model.load('home\saved_model.pb')
         #os.environ["TFHUB_MODEL_LOAD_FORMAT"] = "UNCOMPRESSED"
-        os.environ["TFHUB_CACHE_DIR"] = 'D:/Dev/News Aggregator/tmp/tfhub'
+        os.environ["TFHUB_CACHE_DIR"] = 'C:/sers/Peterson/Documents/GitHub/projectveritas/home'
         print("success1")
         handle = "https://tfhub.dev/google/Wiki-words-250/2"
         print("success2")
