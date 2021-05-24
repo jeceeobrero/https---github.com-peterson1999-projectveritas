@@ -45,16 +45,18 @@ class SearchView(View):
                 i+=1
 
 
-            article_titles = []
-            # article_imgs = []
-            article_dates = []
+            titles = []
+            dates = []
+            images = []
 
             for x in range(len(articles)):
                 for y in articles[x]:
-                    article_titles.append(Credibility.getTitle(Credibility, y.url))
-                    article_dates.append(Credibility.getDate(Credibility,y.url))
+                    title, date, image = Credibility.getTID(Credibility, y.url)
+                    titles.append(title)
+                    dates.append(date)
+                    images.append(image)
 
-            xlist = zip(articles,article_titles, article_dates)
+            xlist = zip(articles, titles, dates, images)
 
             context = {
                 'articles': xlist,

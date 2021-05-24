@@ -29,7 +29,7 @@ class Article(models.Model):
             print(e)
 
     def getArticle(art_id):
-        return Article.objects.get(id = art_id)
+        return Article.objects.filter(id = art_id)
 
     def getArticleAll():
         return Article.objects.order_by('-credibility_score')

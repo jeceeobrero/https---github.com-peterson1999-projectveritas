@@ -19,7 +19,7 @@ class Credibility():
         print("Here 1:load everything")
         #embed = tf.saved_model.load('home\saved_model.pb')
         #os.environ["TFHUB_MODEL_LOAD_FORMAT"] = "UNCOMPRESSED"
-        os.environ["TFHUB_CACHE_DIR"] = 'C:/sers/Peterson/Documents/GitHub/projectveritas/home'
+        os.environ["TFHUB_CACHE_DIR"] = 'D:/Dev/News Aggregator/tmp/tfhub'
         print("success1")
         handle = "https://tfhub.dev/google/Wiki-words-250/2"
         print("success2")
@@ -327,27 +327,21 @@ class Credibility():
             self, urlTest)
         return misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image
 
-    def getTitle(self, url):
+    def getTID(self, url):
         article = Article(url)
         article.download()
         article.parse()
         news_title = article.title
-        return news_title
-
-    def getDate(self, url):
-        article = Article(url)
-        article.download()
-        article.parse()
-        news_date=article.publish_date
-        print(news_date)
-        d = None
+        news_image = article.top_image
+        news_pub_date=article.publish_date
+        news_date = None
         if (news_date != None):
             today = date.datetime.now()
-            newsDate = dateutil_parser.parse(str(news_date))
+            newsDate = dateutil_parser.parse(str(news_pub_date))
             newsDate = newsDate.replace(tzinfo=None)
             print(newsDate)
             rel = today - newsDate
-            d = rel.days
+            news_date = rel.days
 
-        return d
+        return news_title, news_date, news_image
     
