@@ -1,12 +1,11 @@
 from django.http.response import HttpResponse
-from home.forms import URLForm
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
 #from article import views
 import requests
 #from home.credibility import Credibility
-from home.models import Article, Keywords
+# from home.models import Article, Keywords
 import datetime
 
 # Create your views here.
