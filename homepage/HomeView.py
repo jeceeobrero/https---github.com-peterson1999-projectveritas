@@ -6,18 +6,19 @@ from django.views.generic import View
 import requests
 from article.Article import Article
 import datetime
+from article.credibility import Credibility
 
 # Create your views here.
 
 
 class HomeIndexView(View):
-    def displayArticles( request):
-        context=HomeIndexView.showLatestUpdates()
+    def displayArticles(request):
+        context = HomeIndexView.showLatestUpdates()
         return render(request, 'home.html', context)
 
     def getTopArticles():
-        n=Article.getArticleAll()  
-        return n
+        articles = Article.getArticleAll()
+        return articles
 
     def showLatestUpdates():
         flag = False
@@ -32,7 +33,7 @@ class HomeIndexView(View):
             'temperature': r['list'][0]['main']['temp'],
             'description': r['list'][0]['weather'][0]['description'],
             'icon': r['list'][0]['weather'][0]['icon'],
-            
+
             'dt1': datetime.datetime.strptime(str(r['list'][1]['dt_txt'][5:7]), "%m").strftime("%b") + " " + r['list'][1]['dt_txt'][8:10],
             'temperature1': r['list'][1]['main']['temp'],
             'description1': r['list'][1]['weather'][0]['description'],
@@ -72,13 +73,23 @@ class HomeIndexView(View):
             'recovered': format(r2[-1]['Recovered'], ',d'),
             'deceased': format(r2[-1]['Deaths'], ',d'),
         }
-        
-        top_articles= HomeIndexView.getTopArticles()
-        print(top_articles)
-        context = {'city_weather': city_weather,'phil_covid': phil_covid,'top_articles':top_articles}
+
+        top_articles = HomeIndexView.getTopArticles()
+        titles = []
+        dates = []
+        images = []
+        for article in top_articles:
+            title, date, image = Credibility.getTID(Credibility, article.url)
+            titles.append(title)
+            dates.append(date)
+            images.append(image)
+
+        articleList = zip(top_articles, titles, dates, images)
+        context = {'city_weather': city_weather,
+                   'phil_covid': phil_covid, 'top_articles': articleList}
         flag = True
         return context
-    
+
 #    def displayArticles(request):
 #        if "check" in request.POST:
 #            form = URLForm(request.POST)
