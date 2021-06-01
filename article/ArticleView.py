@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.http.response import HttpResponse
 from article.URLForms import URLForm
+import validators
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
@@ -22,9 +23,10 @@ class ArticleView(View):
 
 
             form = URLForm(request.POST)
+            # print("HELLO ADSADAS ", str(form.getURL()))
+            # validate = URLValidator()
 
-
-            if form.is_valid():
+            if form.is_valid() and validators.url(str(form.getURL())):
                 url = form.getURL()
 
                 sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date,topic = Credibility.loadCredibility(
@@ -49,7 +51,12 @@ class ArticleView(View):
             else:
                 print("hi")
                 print(form.errors)
-                return HttpResponse("Not Valid!")
+                article = 1
+                context = {
+                    'article': article,
+                }
+                return render(request, 'article.html', context)
+                #return HttpResponse("Not Valid!")
                 
 
     def addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url):

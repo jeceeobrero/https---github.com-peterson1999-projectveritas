@@ -12,6 +12,7 @@
 </div>
 <div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
     <div id="newsSec">
+        {% if article == None%}
         <div class="row">
             <div class="col-8">
                 <!--
@@ -106,6 +107,14 @@
             </div>
             -->
         </div>
+        {% else %}
+            <div class="list-group-item list-group-item-action mt-3">
+                <div    >
+                    <h5 class="ml-2">Invalid URL entered</h5>
+                    <h6 class="ml-2">Try again with correct format. For example: <span class="font-weight-bold">http://www.example.com/index.html</span></h6>
+                </div>
+            </div>    
+        {% endif %}
     </div>
 </div>
 {% endblock %}               

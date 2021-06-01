@@ -62,9 +62,9 @@ class SearchView(View):
                 'articles': xlist,
             }
 
-            print(articles[0][0].id)
+            #print(articles[0][0].id)
             
-            print(searchname)
+            #print(searchname)
             return render(request, 'result.html', context)
 
     def getArticles(article_id):
