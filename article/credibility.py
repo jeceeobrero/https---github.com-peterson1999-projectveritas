@@ -29,10 +29,10 @@ class Credibility():
         print("success4")
         nltk.download('punkt')
 
-        misleading = 'home\model_misleading.h5'
-        opinion = 'home\model_opinion.h5'
-        sarcasm = 'home\model_sarcasm.h5'
-        sarcasm_text='home\model_sarcasm_text.h5'
+        misleading = 'article\model_misleading.h5'
+        opinion = 'article\model_opinion.h5'
+        sarcasm = 'article\model_sarcasm.h5'
+        sarcasm_text='article\model_sarcasm_text.h5'
 
         print("Here 2:parse article and build model")
         article = Article(url)
@@ -327,45 +327,21 @@ class Credibility():
             self, urlTest)
         return misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image
 
-    def getTitle(self, url):
-        article = Article(url)
-        article.download()
-        article.parse()
-        news_title = article.title
-        return news_title
-
-    def getDate(self, url):
-        article = Article(url)
-        article.download()
-        article.parse()
-        news_date=article.publish_date
-        print(news_date)
-        d = None
-        if (news_date != None):
-            today = date.datetime.now()
-            newsDate = dateutil_parser.parse(str(news_date))
-            newsDate = newsDate.replace(tzinfo=None)
-            print(newsDate)
-            rel = today - newsDate
-            d = rel.days
-
-        return d
-
     def getTID(self, url):
         article = Article(url)
         article.download()
         article.parse()
         news_title = article.title
         news_image = article.top_image
-        news_date=article.publish_date
-        print(news_date)
-        d = None
+        news_pub_date=article.publish_date
+        news_date = None
         if (news_date != None):
             today = date.datetime.now()
-            newsDate = dateutil_parser.parse(str(news_date))
+            newsDate = dateutil_parser.parse(str(news_pub_date))
             newsDate = newsDate.replace(tzinfo=None)
             print(newsDate)
             rel = today - newsDate
-            d = rel.days
+            news_date = rel.days
 
-        return news_title, d, news_image
+        return news_title, news_date, news_image
+    
