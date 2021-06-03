@@ -7,64 +7,64 @@
             <div class="col-12 border border-0 rounded mt-4 p-3">
                 <span class="headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Articles:</h4></span>
                 <div class="list-group mt-3">
-                    {% if top_articles >= 2 %}
+                    {% if top_articles %}
                         {% for article,titles,dates,images in top_articles %}
-                            <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
-                                <div class="row d-flex flex-nowrap">
-                                    <div class="col-xs-8 mx-3">
-                                        <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
-                                        <p class="mt-1">
-                                            {% comment %} GMA News <span class="badge badge-primary badge-pill">93% Credible</span>     {% endcomment %}
-                                            {% if dates != None %}
-                                            <small>{{dates}}</small>
-                                            {% endif %}
-                                        </p>
-                                        <a class="showDropdown" id="{{article.id}}" href="#showResults-{{article.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
-                                            <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
-                                            <i id="dropIcon-{{article.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
-                                        </a>
+                                <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                                    <div class="row d-flex flex-nowrap">
+                                        <div class="col-xs-8 mx-3">
+                                            <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
+                                            <p class="mt-1">
+                                                {% comment %} GMA News <span class="badge badge-primary badge-pill">93% Credible</span>     {% endcomment %}
+                                                {% if dates != None %}
+                                                <small>{{dates}}</small>
+                                                {% endif %}
+                                            </p>
+                                            <a class="showDropdown" id="{{article.id}}" href="#showResults-{{article.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                                                <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
+                                                <i id="dropIcon-{{article.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                                            </a>
+                                        </div>
+                                        <img class="border rounded mx-3" src="{{images}}" width=25%>
                                     </div>
-                                    <img class="border rounded mx-3" src="{{images}}" width=25%>
-                                </div>
-                                <div class="collapse" id="showResults-{{article.id}}">
-                                    <div class="col-12 my-3">
-                                        <div class="row mt-2">
-                                            <div class="col-6 col-md-3">
-                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Relevancy</h6>
-                                                <div class="col-12 progress px-0">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{article.relevancy_score}}%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="collapse" id="showResults-{{article.id}}">
+                                        <div class="col-12 my-3">
+                                            <div class="row mt-2">
+                                                <div class="col-6 col-md-3">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Relevancy</h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{article.relevancy_score}}%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <h6 class="text-dark my-0 py-0">{{article.relevancy_score}}%</h6>
                                                 </div>
-                                                <h6 class="text-dark my-0 py-0">{{article.relevancy_score}}%</h6>
+                                                <div class="col-6 col-md-3">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Opinion</h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{article.nonopinion_score}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{article.nonopinion_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <h6 class="text-dark my-0 py-0">{{article.nonopinion_score}}%</h6>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Satire</h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{article.nonsatire_score}}%; background-color: blueviolet;" aria-valuenow="{{article.nonsatire_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                    </div>
+                                                    <h6 class="text-dark my-0 py-0">{{article.nonsatire_score}}%</h6>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Nonsensational</h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{article.nonsensational_score}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{article.nonsensational_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                    </div>
+                                                    <h6 class="text-dark my-0 py-0">{{article.nonsensational_score}}%</h6>
+                                                </div>
                                             </div>
-                                            <div class="col-6 col-md-3">
-                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Opinion</h6>
-                                                <div class="col-12 progress px-0">
-                                                    <div class="progress-bar" role="progressbar" style="width: {{article.nonopinion_score}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{article.nonopinion_score}}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h6 class="text-dark my-0 py-0">{{article.nonopinion_score}}%</h6>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Satire</h6>
-                                                <div class="col-12 progress px-0">
-                                                    <div class="progress-bar" role="progressbar" style="width: {{article.nonsatire_score}}%; background-color: blueviolet;" aria-valuenow="{{article.nonsatire_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
-                                                </div>
-                                                <h6 class="text-dark my-0 py-0">{{article.nonsatire_score}}%</h6>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Nonsensational</h6>
-                                                <div class="col-12 progress px-0">
-                                                    <div class="progress-bar" role="progressbar" style="width: {{article.nonsensational_score}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{article.nonsensational_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
-                                                </div>
-                                                <h6 class="text-dark my-0 py-0">{{article.nonsensational_score}}%</h6>
+                                            <div class="row mt-4 pl-3">
+                                                <h5 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h5>
+                                                <h5 class="text-success font-weight-bold py-0 pl-3"> {{article.credibility_score}}%</h5>
                                             </div>
                                         </div>
-                                        <div class="row mt-4 pl-3">
-                                            <h5 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h5>
-                                            <h5 class="text-success font-weight-bold py-0 pl-3"> {{article.credibility_score}}%</h5>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         {% endfor %}
                     {% else %}
                     <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
