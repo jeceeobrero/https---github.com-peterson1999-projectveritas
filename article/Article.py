@@ -23,7 +23,14 @@ class Article(models.Model):
             new_article.nonsensational_score = sensational_art
             new_article.topic = topic_art
             new_article.url = url_art
-            new_article.save()
+            count=0
+            count=Article.objects.filter(url=url_art)
+            print("count")
+            print(count)
+            if count.count() == 0 :
+                print("Saved")
+                new_article.save()
+            
             new_article
         except Exception as e:
             print(e)

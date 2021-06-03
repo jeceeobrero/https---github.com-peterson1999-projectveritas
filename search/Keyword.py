@@ -18,4 +18,9 @@ class Keywords(models.Model):
             print(e)
 
     def getArticleList(topics):
-        return Keywords.objects.filter(topic=topics)
+        newtopics= topics.split()
+        print("newtopics: ")
+        print(newtopics)
+        keywords = Keywords.objects.filter(topic__in=newtopics)
+        print(keywords)
+        return Keywords.objects.filter(topic__in=newtopics)
