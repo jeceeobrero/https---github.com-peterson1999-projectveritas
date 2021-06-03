@@ -56,7 +56,7 @@ class SearchView(View):
                     dates.append(date)
                     images.append(image)
 
-            xlist = zip(articles, titles, dates, images)
+            xlist = list(zip(articles, titles, dates, images))
 
             context = {
                 'articles': xlist,

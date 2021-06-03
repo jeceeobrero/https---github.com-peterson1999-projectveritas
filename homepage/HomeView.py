@@ -84,9 +84,11 @@ class HomeIndexView(View):
             dates.append(date)
             images.append(image)
 
-        articleList = zip(top_articles, titles, dates, images)
+        print(top_articles)
+        articleList = list(zip(top_articles, titles, dates, images))
         context = {'city_weather': city_weather,
-                   'phil_covid': phil_covid, 'top_articles': articleList}
+                   'phil_covid': phil_covid, 
+                   'top_articles': articleList}
         flag = True
         return context
 
