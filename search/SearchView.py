@@ -22,9 +22,12 @@ class SearchView(View):
             keywordobjects= Keywords.getArticleList(searchname)
 
             articles=[]
+            emptyList=[]
             for x in keywordobjects:
                 print(x.article_id)
-                articles.append(SearchView.getArticles(x.article_id))     
+                if x.article_id not in emptyList:
+                    emptyList.append(x.article_id)
+                    articles.append(SearchView.getArticles(x.article_id))     
             print(keywordobjects)
             flag=0
             temp=-1  
