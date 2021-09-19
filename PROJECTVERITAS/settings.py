@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'homepage',
     'article',
     'search',
+    'newsOutlet',
 ]
 
 MIDDLEWARE = [
