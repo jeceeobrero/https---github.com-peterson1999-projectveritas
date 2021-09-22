@@ -29,31 +29,54 @@ class HomeIndexView(View):
             r = requests.get(url.format(city)).json()
 
         city_weather = {
-            'city': city,
-            'temperature': r['list'][0]['main']['temp'],
-            'description': r['list'][0]['weather'][0]['description'],
-            'icon': r['list'][0]['weather'][0]['icon'],
-
-            'dt1': datetime.datetime.strptime(str(r['list'][1]['dt_txt'][5:7]), "%m").strftime("%b") + " " + r['list'][1]['dt_txt'][8:10],
-            'temperature1': r['list'][1]['main']['temp'],
-            'description1': r['list'][1]['weather'][0]['description'],
-            'icon1': r['list'][1]['weather'][0]['icon'],
-
-            'dt2': datetime.datetime.strptime(str(r['list'][6]['dt_txt'][5:7]), "%m").strftime("%b") + " " + r['list'][6]['dt_txt'][8:10],
-            'temperature2': r['list'][2]['main']['temp'],
-            'description2': r['list'][2]['weather'][0]['description'],
-            'icon2': r['list'][2]['weather'][0]['icon'],
-
-            'dt3': datetime.datetime.strptime(str(r['list'][13]['dt_txt'][5:7]), "%m").strftime("%b") + " " + r['list'][13]['dt_txt'][8:10],
-            'temperature3': r['list'][3]['main']['temp'],
-            'description3': r['list'][3]['weather'][0]['description'],
-            'icon3': r['list'][3]['weather'][0]['icon'],
-
-            'dt4': datetime.datetime.strptime(str(r['list'][21]['dt_txt'][5:7]), "%m").strftime("%b") + " " + r['list'][21]['dt_txt'][8:10],
-            'temperature4': r['list'][4]['main']['temp'],
-            'description4': r['list'][4]['weather'][0]['description'],
-            'icon4': r['list'][4]['weather'][0]['icon'],
-
+            'city':
+            city,
+            'temperature':
+            r['list'][0]['main']['temp'],
+            'description':
+            r['list'][0]['weather'][0]['description'],
+            'icon':
+            r['list'][0]['weather'][0]['icon'],
+            'dt1':
+            datetime.datetime.strptime(str(r['list'][1]['dt_txt'][5:7]),
+                                       "%m").strftime("%b") + " " +
+            r['list'][1]['dt_txt'][8:10],
+            'temperature1':
+            r['list'][1]['main']['temp'],
+            'description1':
+            r['list'][1]['weather'][0]['description'],
+            'icon1':
+            r['list'][1]['weather'][0]['icon'],
+            'dt2':
+            datetime.datetime.strptime(str(r['list'][6]['dt_txt'][5:7]),
+                                       "%m").strftime("%b") + " " +
+            r['list'][6]['dt_txt'][8:10],
+            'temperature2':
+            r['list'][2]['main']['temp'],
+            'description2':
+            r['list'][2]['weather'][0]['description'],
+            'icon2':
+            r['list'][2]['weather'][0]['icon'],
+            'dt3':
+            datetime.datetime.strptime(str(r['list'][13]['dt_txt'][5:7]),
+                                       "%m").strftime("%b") + " " +
+            r['list'][13]['dt_txt'][8:10],
+            'temperature3':
+            r['list'][3]['main']['temp'],
+            'description3':
+            r['list'][3]['weather'][0]['description'],
+            'icon3':
+            r['list'][3]['weather'][0]['icon'],
+            'dt4':
+            datetime.datetime.strptime(str(r['list'][21]['dt_txt'][5:7]),
+                                       "%m").strftime("%b") + " " +
+            r['list'][21]['dt_txt'][8:10],
+            'temperature4':
+            r['list'][4]['main']['temp'],
+            'description4':
+            r['list'][4]['weather'][0]['description'],
+            'icon4':
+            r['list'][4]['weather'][0]['icon'],
         }
 
         url2 = 'https://api.covid19api.com/live/country/philippines/status/confirmed/date/2020-05-01T13:13:30Z'
@@ -67,7 +90,7 @@ class HomeIndexView(View):
             icon = "bi bi-arrow-down-left"
 
         phil_covid = {
-            'infected':  format(r2[-1]['Confirmed'], ',d'),
+            'infected': format(r2[-1]['Confirmed'], ',d'),
             'icon': icon,
             'active': format(r2[-1]['Active'], ',d'),
             'recovered': format(r2[-1]['Recovered'], ',d'),
@@ -86,11 +109,14 @@ class HomeIndexView(View):
 
         print(top_articles)
         articleList = list(zip(top_articles, titles, dates, images))
-        context = {'city_weather': city_weather,
-                   'phil_covid': phil_covid, 
-                   'top_articles': articleList}
+        context = {
+            'city_weather': city_weather,
+            'phil_covid': phil_covid,
+            'top_articles': articleList
+        }
         flag = True
         return context
+
 
 #    def displayArticles(request):
 #        if "check" in request.POST:

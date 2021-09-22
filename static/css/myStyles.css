@@ -1,0 +1,120 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "ITC Franklin Gothic", sans-serif;
+}
+
+h2,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+.toggler,
+.toggler:focus,
+.toggler:active,
+.toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: 0px;
+  background-color: transparent;
+}
+
+.active {
+  background-color: #d9e8ff;
+  color: black;
+}
+
+.headerBlue {
+  color: #367ee8;
+}
+
+.bgBlue {
+  background-color: #367ee8;
+}
+.bgBlue:hover {
+  background-color: #2862b8;
+}
+
+#sideBar {
+  background-color: white;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.bgGray {
+  background-color: #e8e8e8;
+}
+
+.mainContent {
+  padding-left: 3rem;
+  overflow: hidden;
+}
+
+#credfont {
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .mainContent {
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 0;
+  }
+  #sideBar {
+    position: absolute;
+    width: 300px;
+    top: 80px;
+    bottom: 0;
+    z-index: 1;
+  }
+  img {
+    width: 30px;
+  }
+  #logo {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  .mainContent {
+    padding-left: 60px;
+    padding-right: 60px;
+    z-index: 0;
+  }
+  #sideBar {
+    position: absolute;
+    width: 300px;
+    top: 80px;
+    bottom: 0;
+    z-index: 1;
+  }
+  img {
+    width: 50px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1000px) {
+  .mainContent {
+    z-index: 0;
+  }
+  #sideBar {
+    position: absolute;
+    width: 300px;
+    top: 80px;
+    bottom: 0;
+    z-index: 1;
+  }
+  img {
+    width: 70px;
+  }
+}
+
+.navbar-light .navbar-toggler {
+  border-color: white !important;
+}
+
+.navbar-toggler:focus {
+  border-color: rgba(21, 21, 21, 0.5);
+}

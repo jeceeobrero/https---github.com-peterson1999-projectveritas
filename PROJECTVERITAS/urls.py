@@ -20,7 +20,8 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('home.urls', namespace="home")),
-    path('article/',include('article.urls', namespace= "article")),
-    path('search/', include('search.urls',namespace = "search")),
-    path('homepage/', include('homepage.urls',namespace = "homepage")),
+    path('article/', include('article.urls', namespace="article")),
+    path('search/', include('search.urls', namespace="search")),
+    path('homepage/', include('homepage.urls', namespace="homepage")),
+    path('newsoutlet/', include('newsoutlet.urls', namespace="newsoutlet")),
 ]

@@ -322,11 +322,6 @@ class Credibility():
         Y = np.array(encoded_labels)
         return X, Y
 
-    def credtest(self, urlTest):
-        misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image = self.loadCredibility(
-            self, urlTest)
-        return misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image
-
     def getTID(self, url):
         article = Article(url)
         article.download()
@@ -335,7 +330,7 @@ class Credibility():
         news_image = article.top_image
         news_pub_date=article.publish_date
         news_date = None
-        if (news_date != None):
+        if (news_pub_date != None):
             today = date.datetime.now()
             newsDate = dateutil_parser.parse(str(news_pub_date))
             newsDate = newsDate.replace(tzinfo=None)
@@ -343,5 +338,6 @@ class Credibility():
             rel = today - newsDate
             news_date = rel.days
 
+        print(news_date)
         return news_title, news_date, news_image
     

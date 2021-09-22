@@ -4,66 +4,56 @@
     </div>
 
     <div class="border border-0 rounded mt-0 p-3">
-    <div class="list-group">
-        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4">
+    <div class="list-group">    
+        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4 border rounded">
             <div class="row d-flex flex-nowrap">
                 <div class="col-xs-8 mx-3">
                     <a href="#" class="mb-1 text-dark font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">94% Credible</span></a>
-                    <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
+                    <!-- <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
+                    </p> -->
+                    <p class="mt-1">
+                       <small>3 days ago</small>
                     </p>
-                    <a href="#">
-                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
-                        <i class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                    <a class="showDropdown" id="{{y.id}}" href="#showResults-{{y.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span><i id="dropIcon-{{y.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                    </a>
+                </div>
+                <img class="border rounded mx-3" src="{% static 'images/news.jpg' %}" width=25%>
+            </div>
+        </div>
+        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4 border rounded">
+            <div class="row d-flex flex-nowrap">
+                <div class="col-xs-8 mx-3">
+                    <a href="#" class="mb-1 text-dark font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">94% Credible</span></a>
+                    <!-- <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
+                    </p> -->
+                    <p class="mt-1">
+                       <small>3 days ago</small>
+                    </p>
+                    <a class="showDropdown" id="{{y.id}}" href="#showResults-{{y.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span><i id="dropIcon-{{y.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                    </a>
+                </div>
+                <img class="border rounded mx-3" src="{% static 'images/news.jpg' %}" width=25%>
+            </div>
+        </div>
+        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4 border rounded">
+            <div class="row d-flex flex-nowrap">
+                <div class="col-xs-8 mx-3">
+                    <a href="#" class="mb-1 text-dark font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">94% Credible</span></a>
+                    <!-- <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
+                    </p> -->
+                    <p class="mt-1">
+                       <small>3 days ago</small>
+                    </p>
+                    <a class="showDropdown" id="{{y.id}}" href="#showResults-{{y.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span><i id="dropIcon-{{y.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
                     </a>
                 </div>
                 <img class="border rounded mx-3" src="{% static 'images/news.jpg' %}" width=25%>
             </div>
         </div>
         
-        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4">
-            <div class="row d-flex flex-nowrap">
-                <div class="col-xs-8 mx-3">
-                    <a href="#" class="mb-1 text-dark font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">94% Credible</span></a>
-                    <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
-                    </p>
-                    <a href="#">
-                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
-                        <i class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
-                    </a>
-                </div>
-                <img class="border rounded mx-3" src="{% static 'images/news.jpg' %}" width=25%>
-            </div>
-        </div>
-
-        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4">
-            <div class="row d-flex flex-nowrap">
-                <div class="col-xs-8 mx-3">
-                    <a href="#" class="mb-1 text-dark font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">94% Credible</span></a>
-                    <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
-                    </p>
-                    <a href="#">
-                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
-                        <i class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
-                    </a>
-                </div>
-                <img class="border rounded mx-3" src="{% static 'images/news.jpg' %}" width=25%>
-            </div>
-        </div>
-        
-        <div class="list-group-item list-group-item-action flex-column align-items-start mt-4">
-            <div class="row d-flex flex-nowrap">
-                <div class="col-xs-8 mx-3">
-                    <a href="#" class="mb-1 text-dark font-weight-bold">Health experts want longer lockdown in Metro Manila <span class="badge badge-primary badge-pill">94% Credible</span></a>
-                    <p class="mt-1">GMA News <span class="badge badge-primary badge-pill">93% Credible</span>   <small>3 days ago</small></p>
-                    </p>
-                    <a href="#">
-                        <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
-                        <i class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
-                    </a>
-                </div>
-                <img class="border rounded mx-3" src="{% static 'images/news.jpg' %}" width=25%>
-            </div>
-        </div>
 
     </div>
     </div>

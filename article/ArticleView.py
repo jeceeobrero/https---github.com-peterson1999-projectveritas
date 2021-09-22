@@ -34,7 +34,9 @@ class ArticleView(View):
 
                 #Article.addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url)
 
-                context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
+                context = {
+                    'url': url,
+                    'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
                     'satire_art': satire_art, 'sensational_art': sensational_art,
                     'overall_art_cred': overall_art_cred, 
                     'article_title': article_title, 'article_img': article_img,

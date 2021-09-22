@@ -3,5 +3,5 @@ from homepage.HomeView import HomeIndexView as view
 
 app_name = "homepage"
 urlpatterns = [
-    path('main',view.displayArticles, name = 'homepage'),
+    path('main', view.displayArticles, name='homepage'),
 ]
