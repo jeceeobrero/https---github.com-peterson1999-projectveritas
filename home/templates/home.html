@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col row container-fluid px-0 mt-5 mx-3">
+    <div class="col-12 col-md-8 mainContent container-fluid mx-0">
+        <h2 class="font-weight-bold">Top Ranking</h2>
+            <div class="col-12 border border-0 rounded mt-4 p-3">
+                <span class="headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Articles:</h4></span>
+                <div class="list-group mt-3">
+                    {% if top_articles %}
+                        {% for article,titles,dates,images in top_articles %}
+                                <div class="list-group-item list-group-item-action flex-column align-items-start mt-3 border rounded">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold" target="_blank">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
+                                            <p class="mt-1">
+                                                {% comment %} GMA News <span class="badge badge-primary badge-pill">93% Credible</span>     {% endcomment %}
+                                                {% if dates != None %}
+                                                <small>{{dates}} days ago</small>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <img class="col-md-3 mx-auto rounded mx-3" src="{{images}}" width="25%">
+                                    </div>
+                                    <div class="mt-2 p-0">
+                                        <a class="showDropdown" id="{{article.id}}" href="#showResults-{{article.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                                            <span class="text-secondary font-weight-bold" id="credfont">View article's credibility scores</span>
+                                            <i id="dropIcon-{{article.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="collapse" id="showResults-{{article.id}}">
+                                        <div class="col-12 my-3">
+                                            <div class="row mt-2">
+                                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Relevancy     <span class="text-success">{{article.relevancy_score}}%</span></h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{article.relevancy_score}}%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Opinion     <span style="color:rgb(73, 100, 255)">{{article.nonopinion_score}}%</span></h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{article.nonopinion_score}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{article.nonopinion_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2 col-md-6 col-sm-12 col-xs-12">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Satire     <span style="color:blueviolet">{{article.nonsatire_score}}%</span></h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{article.nonsatire_score}}%; background-color: blueviolet;" aria-valuenow="{{article.nonsatire_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2 col-md-6 col-sm-12 col-xs-12">
+                                                    <h6 class="col-12 px-0 text-dark font-weight-bold">Nonsensational     <span style="color:rgb(232, 75, 75)">{{article.nonsensational_score}}%</span></h6>
+                                                    <div class="col-12 progress px-0">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{article.nonsensational_score}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{article.nonsensational_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4 pl-3">
+                                                <h5 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h5>
+                                                <h5 class="text-success font-weight-bold py-0 pl-3"> {{article.credibility_score}}%</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                        <div class="row d-flex flex-nowrap">
+                            <h5>&nbsp&nbsp&nbspNo articles found.</h5>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 border border-0 rounded mt-4 mb-4 p-3">
+                <div class="row">
+                    <span class="col-9 headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Outlets:</h4></span>
+                    <span class="col-3 headerBlue p-0"><a href="../home/outlets" style="font-size: 0.9rem;">View all outlets</a></span>
+                </div>
+                <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap">
+                    {% if top_outlets %}
+                        {% for outlet_name, outlet_logo, outlet_score in top_outlets %}
+                                <div class="col-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
+                                    <div class="row d-flex flex-nowrap">
+                                        <div class="col-6 p-0">
+                                            <a href="#" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. <img class="border rounded" src="{{outlet_logo}}" width=15%> {{outlet_name}}</a>
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <span class="px-2 badge badge-primary badge-pill">{{outlet_score|floatformat:2}}% Credible</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                        <div class="row d-flex flex-nowrap">
+                            <h5>&nbsp&nbsp&nbspNo news outlets found.</h5>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+    <div class="col-md-4 d-none d-md-block container-fluid mx-0 px-3">
+        <!-- COVID -->
+        <div class="card">
+            <h5 class="card-header bg-white p-3">COVID-19 Update: Philippines</h5>
+            <div class="card-body">
+                <div class="row d-flex">
+                        <div class="col-2 px-0 ml-3">
+                            <img class="float-right" src="{% static 'images/virus.png' %}" height=45>
+                        </div>
+                        <div class="col-1 d-none d-sm-none d-md-none d-lg-block">
+
+                        </div>
+                        <div class="col">
+                            <h5 class="card-text my-1">April</h5>
+                            <h4 class="card-text my-0 py-0 font-weight-bold">{{ phil_covid.infected }}</h4>    
+                            <h4 class="my-0 py-0">Total Cases <i class="{{ phil_covid.icon }} text-success"></i> </h4>
+                        </div>
+                </div>
+                <br>
+                <div class="row d-flex px-2 mt-0">
+                    <div class="col bg-danger p-2 mx-1 my-1 round" style="border-radius: 5px;">
+                        <h6 class="card-text my-1 text-white text-center">Active Cases</h6>
+                        <h6 class="card-text text-white text-center font-weight-bold">{{ phil_covid.active}}</h6>
+                    </div>
+                    <div class="col bg-success p-2 mx-1 my-1 round" style="border-radius: 5px;">
+                        <h6 class="card-text my-1 text-white text-center">Total Recoveries</h6>
+                        <h6 class="card-text text-white text-center font-weight-bold">{{ phil_covid.recovered}}</h6>
+                    </div>
+                    <div class="col bg-secondary p-2 mx-1 my-1 round" style="border-radius: 5px;">
+                        <h6 class="card-text my-1 mx-auto text-white text-center">Total Deaths</h6>
+                        <h6 class="card-text text-white text-center font-weight-bold">{{ phil_covid.deceased}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF COVID -->
+
+        <!-- WEATHER -->
+        <div class="card mt-3">
+            <h5 class="card-header bg-white p-3">Your local weather</h5>
+            <div class="card-body">
+                <div class="row d-flex justify-content-start">
+                        <div class="col-2 px-0 ml-3">
+                            <img class="float-right" src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png">
+                        </div>
+                        <div class="col-1 d-none d-sm-none d-md-none d-lg-block">
+
+                        </div>
+                        <div class="col">
+                            <h5 class="card-text my-1">{{ city_weather.description|title }}</h5>
+                            <h4 class="card-text">{{ city_weather.temperature}} ° C</h4>
+                        </div>
+                </div>
+                <br>
+                <div class="row d-flex mt-2">
+                    <div class="col mx-0 px-0">
+                        <h6 class="card-text my-2 text-center font-weight-bold">Today</h6>
+                        <img class="mx-auto d-block" src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png">
+                        <h6 class="card-text font-weight-bold text-center">{{ city_weather.temperature}}°C</h6>
+                    </div>
+                    <div class="col mx-0 px-0">
+                        <h6 class="card-text my-2 text-center">{{ city_weather.dt1}}</h6>
+                        <img class="mx-auto d-block" src="http://openweathermap.org/img/w/{{ city_weather.icon1 }}.png">
+                        <h6 class="card-text text-center">{{ city_weather.temperature1}}°C</h6>
+                    </div>
+                    <div class="col mx-0 px-0">
+                        <h6 class="card-text my-2 text-center">{{ city_weather.dt2}}</h6>
+                        <img class="mx-auto d-block" src="http://openweathermap.org/img/w/{{ city_weather.icon2 }}.png">
+                        <h6 class="card-text text-center">{{ city_weather.temperature2}}°C</h6>
+                    </div>
+                    <div class="col mx-0 px-0">
+                        <h6 class="card-text my-2 text-center">{{ city_weather.dt3}}</h6>
+                        <img class="mx-auto d-block" src="http://openweathermap.org/img/w/{{ city_weather.icon3 }}.png">
+                        <h6 class="card-text text-center">{{ city_weather.temperature3}}°C</h6>
+                    </div>
+                    <div class="col mx-0 px-0">
+                        <h6 class="card-text my-2 text-center">{{ city_weather.dt4}}</h6>
+                        <img class="mx-auto d-block" src="http://openweathermap.org/img/w/{{ city_weather.icon4 }}.png">
+                        <h6 class="card-text text-center">{{ city_weather.temperature4}}°C</h6>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <!-- END OF WEATHER -->
+        
+        <!-- NEWS TOPICS -->
+        <div class="card mt-3">
+            <h5 class="card-header bg-white p-3">Trending News Topics</h5>
+            <div class="card-body">
+                <ul class="list-unstyled row">
+                    <li class="list-item border-0 mx-1 my-1">
+                    <a href="#" class="list-group-item list-group-item-action py-1 px-3 m-0">
+                            <h6 class="text-dark">COVID-19</h6>
+                    </a>
+                    </li>
+                    <li class="list-item border-0 mx-1 my-1">
+                        <a href="#" class="list-group-item list-group-item-action py-1 px-3 m-0">
+                            <h6 class="text-dark">Vaccine</h6>
+                        </a>
+                    </li>
+                    <li class="list-item border-0 mx-1 my-1">
+                        <a href="#" class="list-group-item list-group-item-action py-1 px-3 m-0">
+                            <h6 class="text-dark">Palestine War</h6>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END NEWS TOPICS -->
+    </div>
+</div>
+    {% endblock %}               
+
+            

@@ -31,14 +31,14 @@
             class="navbar-brand align-self-start toggler d-inline"
             type="button" id="sideButton">
             {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
-                <a href="../home/top"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
+                <a href="../home"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
             {% else %}
                 <span class="navbar-toggler-icon"></span>    
             {% endif %}
             
         </button> 
         <a class="navbar-brand align-self-start"
-            href="../homepage/main">
+            href="../home">
            <h3 class="headerBlue font-weight-bold d-inline" id="logo">project veritas</h3>
         </a>
         <button 
@@ -131,24 +131,24 @@
             {% else %}
             <div class="pl-5 pr-2 pt-4" id="sideBar">
                 <div style="width:250px" id="newsSecs">
-                    <a href="../homepage/main" 
-                    {% if request.path == '/home/top'  %} 
+                    <a href="../home" 
+                    {% if request.path == '/home'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-newspaper mr-4" title="Top Stories"></i>Top Stories</span></a>
 
-                    <a href="../home/corona" 
-                        {% if request.path == '/home/corona'  %} 
+                    <a href="../newssection/corona" 
+                        {% if request.path == '/newssection/corona'  %} 
                             class="nav-link font-weight-bold rounded mt-2 text-dark active"
                         {% else %}
                             class="nav-link text-secondary font-weight-bold rounded mt-2"
                         {% endif %} 
                     ><span><i class="bi bi-slack mr-4" title="Corona Virus"></i>Corona Virus</span></a>
             
-                    <a href="../home/world" 
-                    {% if request.path == '/home/world'  %} 
+                    <a href="../newssection/world" 
+                    {% if request.path == '/newssection/world'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -156,8 +156,8 @@
                     ><span><i class="fa fa-globe mr-4" title="World"></i>World</h6></a>
                 
                 
-                    <a href="../home/philippines" 
-                    {% if request.path == '/home/philippines'  %} 
+                    <a href="../newssection/philippines" 
+                    {% if request.path == '/newssection/philippines'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -165,8 +165,8 @@
                     ><span><i class="bi bi-flag-fill mr-4" title="World"></i>Philippines</h6></a>
                     
 
-                    <a href="../home/health" 
-                    {% if request.path == '/home/health'  %} 
+                    <a href="../newssection/health" 
+                    {% if request.path == '/newssection/health'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -174,40 +174,40 @@
                     ><span><i class="bi bi-heart-fill mr-4" title="Health"></i>Health</h6></a>
                     
                 
-                    <a href="/home/business" 
-                    {% if request.path == '/home/business'  %} 
+                    <a href="/newssection/business" 
+                    {% if request.path == '/newssection/business'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-wallet-fill mr-4" title="Business"></i>Business</h6></a>
 
-                    <a href="/home/technology" 
-                    {% if request.path == '/home/technology'  %} 
+                    <a href="/newssection/technology" 
+                    {% if request.path == '/newssection/technology'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-gear-fill mr-4" title="Technology"></i>Technology</h6></a>
             
-                    <a href="/home/entertainment" 
-                    {% if request.path == '/home/entertainment'  %} 
+                    <a href="/newssection/entertainment" 
+                    {% if request.path == '/newssection/entertainment'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-joystick mr-4" title="Entertainment"></i>Entertainment</h6></a>
             
-                    <a href="/home/sports" 
-                    {% if request.path == '/home/sports'  %} 
+                    <a href="/newssection/sports" 
+                    {% if request.path == '/newssection/sports'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-vinyl-fill mr-4" title="Sports"></i>Sports</h6></a>
                     
-                    <a href="/home/science" 
-                    {% if request.path == '/home/science'  %} 
+                    <a href="/newssection/science" 
+                    {% if request.path == '/newssection/science'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
