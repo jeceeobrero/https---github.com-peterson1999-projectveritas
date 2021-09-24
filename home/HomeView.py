@@ -113,7 +113,8 @@ class HomeIndexView(View):
         # outlets
 
         outlet_name = ["GMA", "ABS-CBN", "CNN Philippines"]
-        outlet_logo = images
+        outlet_logo = ["../static/images/gmalogo.jpg",
+                       "../static/images/gmalogo.jpg", "../static/images/gmalogo.jpg"]
         outlet_score = [86.75, 90.20, 91.73]
         outletList = list(zip(outlet_name, outlet_logo, outlet_score))
 

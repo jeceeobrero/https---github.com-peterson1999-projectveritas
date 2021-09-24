@@ -14,7 +14,7 @@
                                         <div class="col-md-8">
                                             <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold" target="_blank">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
                                             <p class="mt-1">
-                                                {% comment %} GMA News <span class="badge badge-primary badge-pill">93% Credible</span>     {% endcomment %}
+                                                GMA News <span class="badge badge-primary badge-pill">93% Credible</span>    
                                                 {% if dates != None %}
                                                 <small>{{dates}} days ago</small>
                                                 {% endif %}
@@ -77,22 +77,22 @@
             <div class="col-12 border border-0 rounded mt-4 mb-4 p-3">
                 <div class="row">
                     <span class="col-9 headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Outlets:</h4></span>
-                    <span class="col-3 headerBlue p-0"><a href="../home/outlets" style="font-size: 0.9rem;">View all outlets</a></span>
+                    <span class="col-3 headerBlue p-0 text-center"><a href="../home/alloutlets" style="font-size: 0.9rem;">View all outlets</a></span>
                 </div>
-                <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap">
+                <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap justify-content-between">
                     {% if top_outlets %}
                         {% for outlet_name, outlet_logo, outlet_score in top_outlets %}
-                                <div class="col-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
-                                    <div class="row d-flex flex-nowrap">
-                                        <div class="col-6 p-0">
-                                            <a href="#" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. <img class="border rounded" src="{{outlet_logo}}" width=15%> {{outlet_name}}</a>
-                                        </div>
-                                        <div class="col-6 p-0">
+                                <div class="col-12 col-md-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
+                                    <div class="d-flex justify-content-around flex-nowrap">
+                                        <div>
+                                            <a href="../newsoutlet/" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet_name}}</a>
                                             <span class="px-2 badge badge-primary badge-pill">{{outlet_score|floatformat:2}}% Credible</span>
+                                        </div>
+                                        <div>
+                                            <img class="rounded" src="{{outlet_logo}}" width=60px height=60px>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-1"></div>
                         {% endfor %}
                     {% else %}
                     <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
