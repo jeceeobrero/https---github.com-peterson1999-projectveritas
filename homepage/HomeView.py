@@ -96,7 +96,7 @@ class HomeIndexView(View):
             'recovered': format(r2[-1]['Recovered'], ',d'),
             'deceased': format(r2[-1]['Deaths'], ',d'),
         }
-
+        # articles
         top_articles = HomeIndexView.getTopArticles()
         titles = []
         dates = []
@@ -109,11 +109,18 @@ class HomeIndexView(View):
 
         print(top_articles)
         articleList = list(zip(top_articles, titles, dates, images))
-        context = {
-            'city_weather': city_weather,
-            'phil_covid': phil_covid,
-            'top_articles': articleList
-        }
+
+        # outlets
+
+        outlet_name = ["GMA", "ABS-CBN", "CNN Philippines"]
+        outlet_logo = images
+        outlet_score = [86.75, 90.20, 91.73]
+        outletList = list(zip(outlet_name, outlet_logo, outlet_score))
+
+        context = {'city_weather': city_weather,
+                   'phil_covid': phil_covid,
+                   'top_articles': articleList,
+                   'top_outlets': outletList}
         flag = True
         return context
 
