@@ -1,5 +1,5 @@
 from django.urls import path
-from newsOutlet.views import NewsOutletView as view
+from newsOutlet.NewsOutletView import  NewsOutletView as view
 
 app_name = "newsOutlet"
 urlpatterns = [
