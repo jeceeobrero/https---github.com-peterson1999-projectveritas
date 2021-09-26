@@ -1,5 +1,5 @@
 from django.db import models
-
+from article.Article import Article
 # Create your models here.
 
 class NewsOutlets(models.Model):
@@ -39,4 +39,13 @@ class NewsOutlets(models.Model):
 
     def updateNewsOutlet(overall,outlet_id,totalscore):
         NewsOutlets.objects.filter(id = outlet_id.id).update(credibility_score = overall, totalScore = totalscore)
+
+    def filterHistory(filter, outlet_id):
+        o_id =outlet_id 
+        query = '''SELECT DATE_FORMAT(pub_date,'%Y %m %e') as filt, avg(credibility_score)
+               from article_article
+               WHERE outlet_id = %s
+               GROUP BY filt
+               ORDER BY filt desc'''
+        return Article.objects.raw(query, [o_id]) 
 
