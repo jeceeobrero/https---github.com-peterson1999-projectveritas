@@ -78,7 +78,7 @@ class Credibility():
 
         print("Here 6: get relevance score")
         #days = 0
-        rel_score, days = self.relevanceScore(self,news_date)
+        rel_score, days,pub_date = self.relevanceScore(self,news_date)
         if news_date == None:
             days = None
         overall_score = round((misleading_prediction +
@@ -89,7 +89,7 @@ class Credibility():
         print("sarcasm_text: "+ str(sarcasm_text_prediction))
         print("relevancy: "+ str(rel_score))
 
-        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days,news_topic
+        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days,news_topic, pub_date
 
     def opinionScore(self, opinion, url, embed):
         new_model = load_model(opinion)
@@ -163,7 +163,7 @@ class Credibility():
     def relevanceScore(self,news_date):
         today = date.datetime.now()
         print(today)
-
+        newsDate = None
         if (news_date != None):
             newsDate = dateutil_parser.parse(str(news_date))
             newsDate = newsDate.replace(tzinfo=None)
@@ -193,7 +193,7 @@ class Credibility():
         if rel_score < 0:
             rel_score = 0
 
-        return rel_score, d
+        return rel_score, d, newsDate
 
     def get_max_length_url(self, df):
         """

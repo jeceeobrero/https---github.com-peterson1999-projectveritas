@@ -1,3 +1,4 @@
+from re import A
 from django.conf.urls import url
 from django.http.response import HttpResponse
 from article.URLForms import URLForm
@@ -9,7 +10,8 @@ import requests
 from article.credibility import Credibility
 from article.Article import Article
 from search.Keyword import Keywords
-
+from newsOutlet.NewsOutlet import NewsOutlets
+from urllib.parse import urlparse
 # Create your views here.
 
 
@@ -29,7 +31,7 @@ class ArticleView(View):
             if form.is_valid() and validators.url(str(form.getURL())):
                 url = form.getURL()
 
-                sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date,topic = Credibility.loadCredibility(
+                sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date,topic,pub_date = Credibility.loadCredibility(
                     Credibility, url) 
 
                 #Article.addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url)
@@ -39,13 +41,19 @@ class ArticleView(View):
                     'overall_art_cred': overall_art_cred, 
                     'article_title': article_title, 'article_img': article_img,
                     'article_date': article_date}
-                
-                ArticleView.addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url)
-                
-                article = Article.objects.latest('id')
 
-                for x in topic:
-                    ArticleView.addKeyword(x, article)
+                url_out, outletName = ArticleView.__getOutletName(url)
+                out_id,out_flag = NewsOutlets.addNewsOutlet(overall_art_cred,outletName,url_out)
+
+                art_flag = ArticleView.addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url,out_id,pub_date)
+                
+                if out_flag == 0 and art_flag == 1:
+                    ArticleView.__updateNewsOutlet(overall_art_cred, out_id)
+
+                if art_flag == 1:
+                    article = Article.objects.latest('id')
+                    for x in topic:
+                        ArticleView.addKeyword(x, article)
 
                 return render(request, 'article.html', context)
             else:
@@ -59,112 +67,26 @@ class ArticleView(View):
                 #return HttpResponse("Not Valid!")
                 
 
-    def addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url):
-        Article.addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url)
+    def addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url,url_id, pub_date):
+        return Article.addArticle(overall_art_cred, relevancy_art,opinion_art,satire_art,sensational_art,topic,url,url_id,pub_date)
     
     def addKeyword(topics,article):
         Keywords.addKeyword(topics,article)
 
+    def __getOutletName(url):
+        url_outlet = url.split("/")[2]
+        outlet_name = url_outlet.split(".")[1]
 
-#     def get(self, request):
-#         return render(request, 'article.html')
+        return url_outlet, outlet_name
 
-# #change name of post
-#     def post(self, request):
-#         if "check" in request.POST:
-#             print("g")
-#             form = URLForm(request.POST)
-#             article_title = "Health experts want longer lockdown in Metro Manila"
-#             article_img = None
-#             article_date = None
-            
+    def __updateNewsOutlet(overall, outlet_id):
+        count = Article.objects.filter(outlet_id = outlet_id)
+        outlet = NewsOutlets.objects.filter(id = outlet_id.id)
+        for out in outlet:
+            totalScore = out.totalScore + overall
+        print(totalScore)
+        new_overall = (totalScore)/(count.count())
+        print(new_overall)
+        NewsOutlets.updateNewsOutlet(new_overall, outlet_id,totalScore)
+        
 
-#             # relevancy_src = 40.0
-#             # opinion_src = 56.8
-#             # satire_src = 15.5
-#             # sensational_src = 95.6
-#             # overall_src_cred = 85
-
-#             if form.is_valid():
-
-#                 urlTest = request.POST.get("url")
-#                 #print(Credibility.credtest(Credibility, url))
-#                 sensational_art, opinion_art, satire_art, relevancy_art, overall_art_cred, article_title, article_img,article_date,topic = Credibility.loadCredibility(
-#                     Credibility, urlTest)           
-#                 form = Article(credibility_score=overall_art_cred,relevancy_score=relevancy_art,nonopinion_score=opinion_art,nonsatire_score=satire_art,nonsensational_score=sensational_art,topic=topic,url=urlTest)             
-#                 form.save()
-#                 for x in topic:
-#                     keyword= Keywords(topic=x, article=form)
-#                     keyword.save()
-#                 context = {'relevancy_art': relevancy_art, 'opinion_art': opinion_art,
-#                     'satire_art': satire_art, 'sensational_art': sensational_art,
-#                     #'relevancy_src': relevancy_src, 'opinion_src': opinion_src,
-#                     #'satire_src': satire_src, 'sensational_src': sensational_src,
-#                     'overall_art_cred': overall_art_cred, #'overall_src_cred': overall_src_cred,
-#                     'article_title': article_title, 'article_img': article_img,
-#                     'article_date': article_date}
-
-#                 return render(request, 'article.html', context)
-#             else:
-#                 print("hi")
-#                 print(form.errors)
-#                 return HttpResponse("Not Valid!")
-
-#         elif 'search' in request.POST:            
-#             searchname = request.POST.get("searchbox", None)
-#             keywordobjects=Keywords.objects.filter(topic=searchname)
-#             articles=[]
-#             for x in keywordobjects:
-#                 print(x.article_id)
-#                 articles.append(Article.objects.filter(id=x.article_id))     
-#             print(keywordobjects)
-#             flag=0
-#             temp=-1  
-#             i=0
-#             while i < len(articles): 
-#                 j=i+1 
-#                 for x in articles[i]: 
-#                     comp1= x
-#                 while j < len(articles):
-#                     for y in articles[j]: 
-#                         comp2= y
-#                     if comp1.credibility_score < comp2.credibility_score:
-#                         print("DASDAS")
-#                         temp = articles[i]
-#                         articles[i]=articles[j]
-#                         articles[j]=temp
-#                     j+=1
-#                 i+=1
-
-
-#             article_titles = []
-#             # article_imgs = []
-#             article_dates = []
-
-#             for x in range(len(articles)):
-#                 for y in articles[x]:
-#                     article_titles.append(Credibility.getTitle(Credibility, y.url))
-#                     article_dates.append(Credibility.getDate(Credibility,y.url))
-#             # for x in range(len(articles)):
-#             #     for y in articles[x]:
-#             #         relevancy_arts.append(y.relevancy_score)
-#             #         opinion_arts.append(y.nonopinion_score)
-#             #         satire_arts.append(y.nonsatire_score)
-#             #         sensational_arts.append(y.nonsensational_score)
-#             #         overall_art_creds.append(y.credibility_score)
-
-#             # context = {'relevancy_art': relevancy_arts, 'opinion_art': opinion_arts,
-#             #         'satire_art': satire_arts, 'sensational_art': sensational_arts,
-#             #         'overall_art_cred': overall_art_creds}
-#             xlist = zip(articles,article_titles, article_dates)
-
-#             context = {
-#                 'articles': xlist,
-#             }
-
-#             #print(relevancy_arts)
-#             #print(""+str(relevancy_arts[0]))
-#             print(articles[0][0].id)
-            
-#             print(searchname)
-#             return render(request, 'result.html', context)
