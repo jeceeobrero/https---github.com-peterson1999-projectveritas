@@ -1,5 +1,5 @@
 from django.db import models
-from article.Article import Article
+import article.Article
 # Create your models here.
 
 class NewsOutlets(models.Model):
@@ -42,10 +42,26 @@ class NewsOutlets(models.Model):
 
     def filterHistory(filter, outlet_id):
         o_id =outlet_id 
-        query = '''SELECT DATE_FORMAT(pub_date,'%Y %m %e') as filt, avg(credibility_score)
-               from article_article
-               WHERE outlet_id = %s
-               GROUP BY filt
-               ORDER BY filt desc'''
-        return Article.objects.raw(query, [o_id]) 
+        if filter == 1:
+            query = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y %%m') as filt, avg(credibility_score) as average
+                from article_article
+                WHERE outlet_id = {0}
+                GROUP BY filt
+                ORDER BY filt desc'''.format(o_id)
+        elif filter == 2:
+            query = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y') as filt, avg(credibility_score) as average
+                from article_article
+                WHERE outlet_id = {0}
+                GROUP BY filt
+                ORDER BY filt desc'''.format(o_id)
+        else:
+            query = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y %%m %%e') as filt, avg(credibility_score) as average
+                from article_article
+                WHERE outlet_id = {0}
+                GROUP BY filt
+                ORDER BY filt desc'''.format(o_id)
+        p= article.Article.Article.objects.raw(query) 
+        for i in p:
+            print(i.average)
+        return p
 
