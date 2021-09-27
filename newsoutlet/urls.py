@@ -4,5 +4,5 @@ from newsoutlet.OutletView import OutletIndexView as view
 app_name = "newsoutlet"
 
 urlpatterns = [
-    path('', view.displayOutlets, name="newsoutlet"),
+    path('newsoutlet', view.displayOutlets, name="newsoutlet"),
 ]
