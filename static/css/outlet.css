@@ -17,3 +17,12 @@
 .bgOrange {
   background-color: #f88600;
 }
+
+#liveCredPerf {
+  height: 200px;
+  min-height: 200px;
+}
+
+.yearChart {
+  height: 480px;
+}
