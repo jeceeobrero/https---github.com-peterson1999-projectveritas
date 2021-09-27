@@ -74,16 +74,17 @@
                     {% endif %}
                 </div>
             </div>
+            
             <div class="col-12 border border-0 rounded mt-4 mb-4 p-3">
-                <div class="row">
-                    <span class="col-9 headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Outlets:</h4></span>
-                    <span class="col-3 headerBlue p-0 text-center"><a href="../home/alloutlets" style="font-size: 0.9rem;">View all outlets</a></span>
+                <div class="d-flex flex-wrap justify-content-between">
+                    <span class="headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Outlets:</h4></span>
+                    <span class="headerBlue p-0 text-center"><a href="../home/alloutlets" style="font-size: 0.9rem;">View all outlets</a></span>
                 </div>
                 <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap justify-content-between">
                     {% if top_outlets %}
                         {% for outlet_name, outlet_logo, outlet_score in top_outlets %}
                                 <div class="col-12 col-md-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
-                                    <div class="d-flex justify-content-around flex-nowrap">
+                                    <div class="d-flex justify-content-between flex-nowrap">
                                         <div>
                                             <a href="../newsoutlet/" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet_name}}</a>
                                             <span class="px-2 badge badge-primary badge-pill">{{outlet_score|floatformat:2}}% Credible</span>
@@ -110,12 +111,9 @@
         <div class="card">
             <h5 class="card-header bg-white p-3">COVID-19 Update: Philippines</h5>
             <div class="card-body">
-                <div class="row d-flex">
-                        <div class="col-2 px-0 ml-3">
-                            <img class="float-right" src="{% static 'images/virus.png' %}" height=45>
-                        </div>
-                        <div class="col-1 d-none d-sm-none d-md-none d-lg-block">
-
+                <div class="d-flex justify-content-around">
+                        <div class="d-flex justify-content-center align-items-center" style="width:25%">
+                            <img class="img-fluid" src="{% static 'images/virus.png' %}" style="width:80px;height:80px;min-width:20px;min-height:20px;">
                         </div>
                         <div class="col">
                             <h5 class="card-text my-1">April</h5>
@@ -146,20 +144,18 @@
         <div class="card mt-3">
             <h5 class="card-header bg-white p-3">Your local weather</h5>
             <div class="card-body">
-                <div class="row d-flex justify-content-start">
-                        <div class="col-2 px-0 ml-3">
-                            <img class="float-right" src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png">
+                <div class="d-flex flex-wrap justify-content-between">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png">
                         </div>
-                        <div class="col-1 d-none d-sm-none d-md-none d-lg-block">
-
-                        </div>
+  
                         <div class="col">
                             <h5 class="card-text my-1">{{ city_weather.description|title }}</h5>
                             <h4 class="card-text">{{ city_weather.temperature}} ° C</h4>
                         </div>
                 </div>
                 <br>
-                <div class="row d-flex mt-2">
+                <div class="row d-flex flex-wrap mt-2">
                     <div class="col mx-0 px-0">
                         <h6 class="card-text my-2 text-center font-weight-bold">Today</h6>
                         <img class="mx-auto d-block" src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png">
