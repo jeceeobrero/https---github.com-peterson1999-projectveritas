@@ -6,17 +6,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="col row container px-0 mt-5 mx-3">
-    <div class="col-12 mainContent mainOutlet container-fluid mx-0 pl-5">
-        <img class="d-inline" src="https://lh3.googleusercontent.com/8GleZQjeJCLTgJ15oi46EG6mSpoLq48dycNE8Zfdxan2-_2IaFxqI9HfC6f0bhf3DKQ" width="80">
+<div class="col row container px-0 mt-5 mx-0">
+    <div class="col-12 mainContent mainOutlet container-fluid mx-0 px-5">
         <h2 class="d-inline font-weight-bold mt-5">GMA News Online</h2>
-            <div class="row justify-content-md-center mt-2 p-3">
-                <div class="col col-md-8 col-sm-12 border border-1 rounded py-4 px-0" id="donutchart">
+        <img class="d-inline" src="https://lh3.googleusercontent.com/8GleZQjeJCLTgJ15oi46EG6mSpoLq48dycNE8Zfdxan2-_2IaFxqI9HfC6f0bhf3DKQ" width="60">
+            <div class="row justify-content-md-center mt-2">
+                <div class="col col-md-3 col-sm-12 border border-1 rounded py-4 px-2 overflow-hidden" id="donutchart">
                     <span class="headerBlue font-weight-bold p-0 text-center"><h4 class="font-weight-bold">Live Credibility Performance</h4></span>
-                    <canvas id="liveCredPerf"></canvas>
-                    
-                    <div class="px-3">
-                        <div class="pt-3">
+                    <div >
+                        <canvas id="liveCredPerf"></canvas>
+                    </div>
+                    <div class="container-fluid px-3 pt-4">
+                        <div class="pt-4">
                             <h6 class="font-weight-bold d-inline ">Non-Opinion</h6>
                             <h6 class="text-dark my-0 py-0 d-inline">85%</h6>
                             <div class="col-12 progress px-0">
@@ -24,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="pt-3">
+                        <div class="pt-4">
                             <h6 class="font-weight-bold d-inline ">Non-Satire</h6>
                             <h6 class="text-dark my-0 py-0 d-inline">95%</h6>
                             <div class="col-12 progress px-0">
@@ -32,7 +33,7 @@
                             </div>
                         </div>
 
-                        <div class="pt-3">
+                        <div class="pt-4">
                             <h6 class="font-weight-bold d-inline ">Non-Sensational</h6>
                             <h6 class="text-dark my-0 py-0 d-inline">92%</h6>
                             <div class="col-12 progress px-0">
@@ -40,23 +41,23 @@
                             </div>
                         </div>
 
-                        <div class="pt-3">
+                        <div class="pt-4">
                             <h6 class="font-weight-bold d-inline ">Overall Crediblity</h6>
                             <h6 class="text-dark my-0 py-0 d-inline">98%</h6>
                             <div class="col-12 progress px-0">
                                 <div class="progress-bar bgOrange" role="progressbar" style="width: 98%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
-                <div class="col col-md-auto col-sm-12 pt-3 px-4 mx-auto">
-                    <div class="row mt-2">
-                        <h4 class="col col-md-8 col-sm-12 font-weight-bold d-inline"><span class="headerBlue font-weight-bold p-0">Annual Credibility Performance</span></h4>
-                        <div class="mt-2 mx-auto col-md-4 col-sm-12 d-inline-flex">
-                            <input class="form-control form-control-sm" type="date" id="startdate" onchange="filterData()" value="2021-08-25">
-                            <input class="form-control form-control-sm" type="date" id="enddate" onchange="filterData()" value="2021-08-28">
-                            <select class="form-control form-control-sm" id="metric" onchange="filterData()">
+                <div class="col col-md-8 col-sm-12 py-3 px-0 mx-auto yearChart" style="height: 500px;">
+                    <div class="d-flex justify-content-between flex-wrap mt-2">
+                        <h4 class="font-weight-bold d-inline m-0 my-1">
+                            <span class="headerBlue font-weight-bold p-0">Annual Credibility Performance</span></h4>
+                        <div class="d-inline-flex m-0 p-0 my-1">
+                            <input class="form-control form-control-sm mr-2" type="date" id="startdate" onchange="filterData()" value="2021-08-25">
+                            <input class="form-control form-control-sm mx-2" type="date" id="enddate" onchange="filterData()" value="2021-08-28">
+                            <select class="form-control form-control-sm mx-2" id="metric" onchange="filterData()">
                                 <option value="All">All</option>
                                 <option value="Non-Opinion">Non-Opinion</option>
                                 <option value="Non-Satire">Non-Satire</option>
@@ -64,10 +65,12 @@
                             </select>
                         </div>
                     </div>
-                    <canvas class="mx-auto pt-5" id="myChart" style="max-width:1000px"></canvas>
+                    <canvas class="mx-auto pt-5" id="myChart"></canvas>
                 </div>
             </div>
-            <div class="list-group mt-3 pr-5">
+            
+            <div class="row justify-content-md-center list-group mt-5 pt-5">
+                <span class="headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Articles:</h4></span>
                 {% if top_articles %}
                     {% for article,titles,dates,images in top_articles %}
                             <div class="list-group-item list-group-item-action flex-column align-items-start mt-3 border rounded">
@@ -164,13 +167,15 @@
         legend: { display: false,},
         tooltips: {enabled: true},
         hover: {mode: null},
-        title: { display: true,}
+        title: { display: true,},
+        maintainAspectRatio: false
       }
     });
     </script>
 
     <script>
         // setup 
+
         const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28']; 
         const data_nonopinion = [50,35,27,60];
         const data_nonsatire = [20,45,47,50];
@@ -228,8 +233,9 @@
                             beginAtZero: true
                         }
                     }]
-                }
-            }
+                },
+                maintainAspectRatio: false,
+            },
         };
 
         // render init block
