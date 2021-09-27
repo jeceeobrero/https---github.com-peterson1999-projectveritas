@@ -16,14 +16,14 @@
             {% if articles %}
                 {% for article, titles,dates,images in articles %}
                     {% for y in article %}
-                        <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start mt-3 border rounded">
                             <div class="row d-flex flex-nowrap">
                                 <div class="col-xs-8 mx-3">
-                                    <a href="{{y.url}}" class="mb-1 text-dark font-weight-bold">{{titles}} <span class="badge badge-primary badge-pill">{{y.credibility_score}}% Credible</span></a>
+                                    <a href="{{y.url}}" class="mb-1 text-dark font-weight-bold" target="_blank">{{titles}} <span class="badge badge-primary badge-pill">{{y.credibility_score}}% Credible</span></a>
                                     <p class="mt-1">
                                     {% comment %} GMA News <span class="badge badge-primary badge-pill">93% Credible</span>     {% endcomment %}
                                         {% if dates != None %}
-                                        <small>{{dates}}</small>
+                                        <small>{{dates}} days ago</small>
                                         {% endif %}
                                     </p>
                                     <a class="showDropdown" id="{{y.id}}" href="#showResults-{{y.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">

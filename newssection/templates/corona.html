@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/newsSec.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto mt-5 w-100" style="position: absolute; z-index: 0;" >
+    <div id="newsSec">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <img class="mr-3" src="{% static 'images/virus.png' %}" height=55>
+                <span><h2 class="font-weight-bold">Corona Virus</h2></span>
+            </div>
+            <div class="btn-group dropright" style="margin-bottom:8px; margin-top: 8px;">
+                <button type="button" class="btn btn-transparent text-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by
+                </button>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item" type="button">Ascending Ranking</button>
+                  <button class="dropdown-item" type="button">Descending Ranking</button>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item" type="button">Date</button>
+                </div>
+            </div>
+
+        </div>
+    
+        {% include 'newscat.html' %}
+    </div>
+</div>
+{% endblock %}               
+
+            

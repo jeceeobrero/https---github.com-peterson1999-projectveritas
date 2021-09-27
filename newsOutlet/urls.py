@@ -1,7 +1,8 @@
 from django.urls import path
-from newsOutlet.NewsOutletView import  NewsOutletView as view
+from newsoutlet.OutletView import OutletIndexView as view
 
-app_name = "newsOutlet"
+app_name = "newsoutlet"
+
 urlpatterns = [
-    path('news-outlet',view.sampleOutlet, name = 'news-outlet'),
+    path('newsoutlet', view.displayOutlets, name="newsoutlet"),
 ]

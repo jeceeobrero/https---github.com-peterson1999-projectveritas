@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/outlet.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="col row container px-0 mt-5 mx-0">
+    <div class="col-12 mainContent mainOutlet container-fluid mx-0 px-5">
+        <h2 class="d-inline font-weight-bold mt-5">GMA News Online</h2>
+        <img class="d-inline" src="https://lh3.googleusercontent.com/8GleZQjeJCLTgJ15oi46EG6mSpoLq48dycNE8Zfdxan2-_2IaFxqI9HfC6f0bhf3DKQ" width="60">
+            <div class="row justify-content-md-center mt-2">
+                <div class="col col-md-3 col-sm-12 border border-1 rounded py-4 px-2 overflow-hidden" id="donutchart">
+                    <span class="headerBlue font-weight-bold p-0 text-center"><h4 class="font-weight-bold">Live Credibility Performance</h4></span>
+                    <div >
+                        <canvas id="liveCredPerf"></canvas>
+                    </div>
+                    <div class="container-fluid px-3 pt-4">
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Non-Opinion</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">85%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgBlue" role="progressbar" style="width: 85%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Non-Satire</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">95%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgPurple" role="progressbar" style="width: 95%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Non-Sensational</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">92%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgRed" role="progressbar" style="width: 92%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Overall Crediblity</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">98%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgOrange" role="progressbar" style="width: 98%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-8 col-sm-12 py-3 px-0 mx-auto yearChart" style="height: 500px;">
+                    <div class="d-flex justify-content-between flex-wrap mt-2">
+                        <h4 class="font-weight-bold d-inline m-0 my-1">
+                            <span class="headerBlue font-weight-bold p-0">Annual Credibility Performance</span></h4>
+                        <div class="d-inline-flex m-0 p-0 my-1">
+                            <input class="form-control form-control-sm mr-2" type="date" id="startdate" onchange="filterData()" value="2021-08-25">
+                            <input class="form-control form-control-sm mx-2" type="date" id="enddate" onchange="filterData()" value="2021-08-28">
+                            <select class="form-control form-control-sm mx-2" id="metric" onchange="filterData()">
+                                <option value="All">All</option>
+                                <option value="Non-Opinion">Day</option>
+                                <option value="Non-Satire">Month</option>
+                                <option value="Non-Sensational">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas class="mx-auto pt-5" id="myChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="row justify-content-md-center list-group mt-5 pt-5">
+                <span class="headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Articles:</h4></span>
+                {% if top_articles %}
+                    {% for article,titles,dates,images in top_articles %}
+                            <div class="list-group-item list-group-item-action flex-column align-items-start mt-3 border rounded">
+                                <div class="row d-flex flex-nowrap">
+                                    <div class="col-xs-8 mx-3">
+                                        <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold" target="_blank">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
+                                        <p class="mt-1">
+                                            {% comment %} GMA News <span class="badge badge-primary badge-pill">93% Credible</span>     {% endcomment %}
+                                            {% if dates != None %}
+                                            <small>{{dates}} days ago</small>
+                                            {% endif %}
+                                        </p>
+                                        <a class="showDropdown" id="{{article.id}}" href="#showResults-{{article.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                                            <span class="text-secondary font-weight-bold" style="font-size: 0.8rem;">View article's credibility scores</span>
+                                            <i id="dropIcon-{{article.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                                        </a>
+                                    </div>
+                                    <img class="border rounded mx-3" src="{{images}}" width=25%>
+                                </div>
+                                <div class="collapse" id="showResults-{{article.id}}">
+                                    <div class="col-12 my-3">
+                                        <div class="row mt-2">
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Relevancy</h6>
+                                                <div class="col-12 progress px-0">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{article.relevancy_score}}%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <h6 class="text-dark my-0 py-0">{{article.relevancy_score}}%</h6>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Opinion</h6>
+                                                <div class="col-12 progress px-0">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{article.nonopinion_score}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{article.nonopinion_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <h6 class="text-dark my-0 py-0">{{article.nonopinion_score}}%</h6>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Satire</h6>
+                                                <div class="col-12 progress px-0">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{article.nonsatire_score}}%; background-color: blueviolet;" aria-valuenow="{{article.nonsatire_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                </div>
+                                                <h6 class="text-dark my-0 py-0">{{article.nonsatire_score}}%</h6>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="col-12 px-0 text-dark font-weight-bold">Nonsensational</h6>
+                                                <div class="col-12 progress px-0">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{article.nonsensational_score}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{article.nonsensational_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                </div>
+                                                <h6 class="text-dark my-0 py-0">{{article.nonsensational_score}}%</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4 pl-3">
+                                            <h5 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h5>
+                                            <h5 class="text-success font-weight-bold py-0 pl-3"> {{article.credibility_score}}%</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endfor %}
+                {% else %}
+                <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                    <div class="row d-flex flex-nowrap">
+                        <h5>&nbsp&nbsp&nbspNo articles found.</h5>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        
+    </div>
+</div>
+{% endblock %}               
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+    var xValues = ["Non-Opinion", "Non-Satire", "Non-sensational"];
+    var yValues = [85, 95, 92];
+    var barColors = [
+      "#28A745",
+      "#4964FF",
+      "#8A2BE2",
+      "#E84B4B",
+    ];
+    
+    new Chart("liveCredPerf", {
+      type: "doughnut",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: { display: false,},
+        tooltips: {enabled: true},
+        hover: {mode: null},
+        title: { display: true,},
+        maintainAspectRatio: false
+      }
+    });
+    </script>
+
+    <script>
+        // setup 
+
+        const dates = ['2021-08-25', '2021-08-26', '2021-08-27', '2021-08-28']; 
+        const data_nonopinion = [50,35,27,60];
+        const data_nonsatire = [20,45,47,50];
+        const data_nonsensational = [90,85,67,70];
+
+        const data_array = [
+            [50,35,27,60],
+            [20,45,47,50],
+            [90,85,67,70]
+        ]
+
+
+        const metricsdata = [
+                {
+                    label: "Non-Opinion",
+                    data: data_array[0],
+                    fill: false,
+                    lineTension: 0,
+                    borderColor: "#4964FF",
+                    fill: false
+                }, 
+                {
+                    label: "Non-Satire",
+                    data: data_array[1],
+                    fill: false,
+                    lineTension: 0,
+                    borderColor: "#8A2BE2",
+                    fill: false
+                },
+                {
+                    label: "Non-Sensational",
+                    data: data_array[2],
+                    fill: false,
+                    lineTension: 0,
+                    borderColor: "#E84B4B",
+                    fill: false
+                },
+            ]
+    
+        const data_overall = metricsdata.map(a => ({...a}));
+
+        const data = {
+            labels: dates,
+            datasets: data_overall,
+        };
+
+        // config 
+        const config = {
+            type: 'line',
+            data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                maintainAspectRatio: false,
+            },
+        };
+
+        // render init block
+        const myChart = new Chart(document.getElementById('myChart'),config);
+
+        function filterData(){
+            const dates2 = [...dates];
+           
+            const startdate = document.getElementById('startdate');
+            const enddate = document.getElementById('enddate');
+           
+            const indexstartdate = dates2.indexOf(startdate.value);
+            const indexenddate = dates2.indexOf(enddate.value);
+            
+            //DATE
+            //slice
+            const filterDate = dates2.slice(indexstartdate, indexenddate+1);
+            //replace labels
+            myChart.config.data.labels = filterDate;
+            myChart.update();
+
+            //METRIC
+            const metric = [...metricsdata];
+            console.log(metric);    
+            const metricval = document.getElementById('metric');
+            console.log(metricval.value);
+
+            console.log("metricsdata :"+metricsdata[0].data);
+
+            var indexmetric = -1;
+            for (var i in metric) { 
+                if (metric[i].label == metricval.value) {
+                    indexmetric = i;
+                    break;
+                }
+            }
+
+            let filteredData = [...data_array];
+
+            for(let i = 0; i < filteredData.length; i++){ 
+                console.log("before", filteredData[i]);
+                filteredData[i] = filteredData[i].slice(indexstartdate, indexenddate+1);
+                console.log("after", filteredData[i]);
+            }
+
+            console.log("filtered", filteredData[indexmetric]);
+            
+            if(indexmetric != -1){
+                let newdataset = [data_overall[indexmetric]];
+                console.log("newdataset", newdataset);
+                newdataset[0].data = filteredData[indexmetric];
+                console.log("newdataset[0]", newdataset[0].data);
+                myChart.config.data.datasets = newdataset;
+                console.log(myChart.config.data.datasets);
+            }
+            else{
+                myChart.config.data.datasets =  metricsdata;
+                myChart.config.data.datasets[0].data = filteredData[0];
+                myChart.config.data.datasets[1].data = filteredData[1];
+                myChart.config.data.datasets[2].data = filteredData[2];
+            }
+            myChart.update();
+        }
+    </script>
+{% endblock %}
+            
+            
