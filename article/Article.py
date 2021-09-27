@@ -47,3 +47,6 @@ class Article(models.Model):
 
     def getArticleAll():
         return Article.objects.order_by('-credibility_score')
+
+    def getOutletArticle(outlet_id):
+        return Article.objects.filter(outlet_id = outlet_id)

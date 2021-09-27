@@ -82,12 +82,12 @@ class ArticleView(View):
         return url_outlet, outlet_name
 
     def __updateNewsOutlet(overall, outlet_id):
-        count = Article.objects.filter(outlet_id = outlet_id)
-        outlet = NewsOutlets.objects.filter(id = outlet_id.id)
+        count = Article.getOutletArticle(outlet_id).count()
+        outlet = NewsOutlets.getNewsOutlet(outlet_id.id)
         for out in outlet:
             totalScore = out.totalScore + overall
         print(totalScore)
-        new_overall = (totalScore)/(count.count())
+        new_overall = (totalScore)/(count)
         print(new_overall)
         NewsOutlets.updateNewsOutlet(new_overall, outlet_id,totalScore)
         
