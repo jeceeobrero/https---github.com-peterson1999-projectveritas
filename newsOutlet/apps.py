@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class NewsOutletConfig(AppConfig):
+class NewsoutletConfig(AppConfig):
     name = 'newsOutlet'

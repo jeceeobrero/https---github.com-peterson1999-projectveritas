@@ -23,5 +23,5 @@ urlpatterns = [
     path('article/', include('article.urls', namespace="article")),
     path('search/', include('search.urls', namespace="search")),
     path('newssection/', include('newssection.urls', namespace="newssection")),
-    path('newsOutlet/', include('newsOutlet.urls', namespace="newsOutlet")),
+    path('newsoutlet/', include('newsOutlet.urls', namespace="newsOutlet")),
 ]

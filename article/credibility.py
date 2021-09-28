@@ -334,10 +334,8 @@ class Credibility():
             today = date.datetime.now()
             newsDate = dateutil_parser.parse(str(news_pub_date))
             newsDate = newsDate.replace(tzinfo=None)
-            print(newsDate)
             rel = today - newsDate
             news_date = rel.days
 
-        print(news_date)
         return news_title, news_date, news_image
     

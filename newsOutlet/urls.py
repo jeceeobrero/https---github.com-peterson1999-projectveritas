@@ -4,5 +4,5 @@ from newsOutlet.NewsOutletView import NewsOutletView as view
 app_name = "newsOutlet"
 
 urlpatterns = [
-    path('newsOutlet', view.showOutletPerformance, name="newsOutlet"),
+    path('news-outlet', view.showOutletPerformance, name='newsOutlet'),
 ]

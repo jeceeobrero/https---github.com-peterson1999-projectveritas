@@ -49,4 +49,4 @@ class Article(models.Model):
         return Article.objects.order_by('-credibility_score')
 
     def getOutletArticle(outlet_id):
-        return Article.objects.filter(outlet_id = outlet_id)
+        return Article.objects.filter(outlet_id = outlet_id).order_by('-credibility_score')
