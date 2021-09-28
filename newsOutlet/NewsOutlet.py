@@ -40,28 +40,28 @@ class NewsOutlets(models.Model):
     def updateNewsOutlet(overall,outlet_id,totalscore):
         NewsOutlets.objects.filter(id = outlet_id.id).update(credibility_score = overall, totalScore = totalscore)
 
-    def filterHistory(filter, outlet_id):
+    def filterHistory(outlet_id):
         o_id =outlet_id 
-        if filter == 1:
-            query = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y %%m') as filt, avg(credibility_score) as average
+        
+        querymonth = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y %%m') as filt, avg(credibility_score) as average
                 from article_article
                 WHERE outlet_id = {0}
                 GROUP BY filt
                 ORDER BY filt desc'''.format(o_id)
-        elif filter == 2:
-            query = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y') as filt, avg(credibility_score) as average
+        
+        queryyear = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y') as filt, avg(credibility_score) as average
                 from article_article
                 WHERE outlet_id = {0}
                 GROUP BY filt
                 ORDER BY filt desc'''.format(o_id)
-        else:
-            query = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y %%m %%e') as filt, avg(credibility_score) as average
+        
+        queryday = '''SELECT 1 as id, DATE_FORMAT(pub_date,'%%Y %%m %%e') as filt, avg(credibility_score) as average
                 from article_article
                 WHERE outlet_id = {0}
                 GROUP BY filt
                 ORDER BY filt desc'''.format(o_id)
-        p= article.Article.Article.objects.raw(query) 
-        for i in p:
-            print(i.average)
-        return p
+        month_filter= article.Article.Article.objects.raw(querymonth)
+        year_filter= article.Article.Article.objects.raw(queryyear)
+        day_filter= article.Article.Article.objects.raw(queryday) 
+        return month_filter, year_filter, day_filter
 
