@@ -5,13 +5,14 @@ from newsOutlet.NewsOutlet import NewsOutlets
 from article.Article import Article
 from article.credibility import Credibility
 
+
 class NewsOutletView(View):
     def showOutletPerformance(request):
         print("HELLO")
-        p = NewsOutlets.filterHistory(0,7)
+        p = NewsOutlets.filterHistory(0)
         for i in p:
-            print("filter-date:",i.filt)
-            print("average score:",i.average)
+            print("filter-date:", i.filt)
+            print("average score:", i.average)
 
         articles = NewsOutletView.__getArticleList(7)
 
@@ -31,7 +32,7 @@ class NewsOutletView(View):
             'filterResults': p,
             'articles': xlist,
         }
-        #return HttpResponse('NewsOutletView')
+        # return HttpResponse('NewsOutletView')
         return render(request, 'outlet.html', context)
 
     def __getArticleList(outlet_id):
