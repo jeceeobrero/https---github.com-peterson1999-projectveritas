@@ -9,11 +9,11 @@ from article.credibility import Credibility
 class NewsOutletView(View):
     def showOutletPerformance(request, outlet_id):
         print("HELLO")
-        print(outlet_id)
-        p = NewsOutlets.filterHistory(0, outlet_id)
-        for i in p:
-            print("filter-date:", i.filt)
-            print("average score:", i.average)
+        month_filter, year_filter, day_filter = NewsOutlets.filterHistory(
+            outlet_id)  # pass outlet id here and get 3 querysets
+        for i in month_filter:
+            print("filter-date:", i.filt)  # filter date
+            print("average score:", i.average)  # average score for that date
 
         articles = NewsOutletView.__getArticleList(outlet_id)
 
@@ -30,7 +30,9 @@ class NewsOutletView(View):
 
         xlist = list(zip(articles, titles, dates, images))
         context = {
-            'filterResults': p,
+            'filterMonth': month_filter,
+            'filterYear': year_filter,
+            'filterDay': day_filter,
             'articles': xlist,
         }
         # return HttpResponse('NewsOutletView')
