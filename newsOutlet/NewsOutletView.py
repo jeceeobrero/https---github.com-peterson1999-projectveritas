@@ -1,19 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.views.generic import View
 from newsOutlet.NewsOutlet import NewsOutlets
 from article.Article import Article
 from article.credibility import Credibility
 
-class NewsOutletView(View):
-    def showOutletPerformance(request):
-        print("HELLO")
-        p = NewsOutlets.filterHistory(0,7)
-        for i in p:
-            print("filter-date:",i.filt)
-            print("average score:",i.average)
 
-        articles = NewsOutletView.__getArticleList(7)
+class NewsOutletView(View):
+    def showOutletPerformance(request, outlet_id):
+        print("HELLO")
+        print(outlet_id)
+        p = NewsOutlets.filterHistory(0, outlet_id)
+        for i in p:
+            print("filter-date:", i.filt)
+            print("average score:", i.average)
+
+        articles = NewsOutletView.__getArticleList(outlet_id)
 
         titles = []
         dates = []
@@ -31,8 +33,15 @@ class NewsOutletView(View):
             'filterResults': p,
             'articles': xlist,
         }
-        #return HttpResponse('NewsOutletView')
+        # return HttpResponse('NewsOutletView')
         return render(request, 'outlet.html', context)
+
+    def seeOutlet(request, name):
+        print(name)
+        if request.method == "POST":
+            id = request.POST.get("outletID")
+            print(id)
+        return NewsOutletView.showOutletPerformance(request, id)
 
     def __getArticleList(outlet_id):
         print("HIHIHIH")
