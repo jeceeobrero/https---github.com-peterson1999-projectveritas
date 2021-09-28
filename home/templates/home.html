@@ -82,12 +82,12 @@
                 </div>
                 <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap justify-content-between">
                     {% if top_outlets %}
-                        {% for outlet_name, outlet_logo, outlet_score in top_outlets %}
+                        {% for outlet, outlet_logo in top_outlets %}
                                 <div class="col-12 col-md-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
                                     <div class="d-flex justify-content-between flex-nowrap">
                                         <div>
-                                            <a href="../newsoutlet/" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet_name}}</a>
-                                            <span class="px-2 badge badge-primary badge-pill">{{outlet_score|floatformat:2}}% Credible</span>
+                                            <a href="../newsoutlet/" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a>
+                                            <span class="px-2 badge badge-primary badge-pill">{{outlet.credibility_score|floatformat:2}}% Credible</span>
                                         </div>
                                         <div>
                                             <img class="rounded" src="{{outlet_logo}}" width=60px height=60px>

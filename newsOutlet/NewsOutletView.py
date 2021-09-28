@@ -8,7 +8,7 @@ from article.credibility import Credibility
 class NewsOutletView(View):
     def showOutletPerformance(request):
         print("HELLO")
-        p = NewsOutlets.filterHistory(0,0)
+        p = NewsOutlets.filterHistory(0,7)
         for i in p:
             print("filter-date:",i.filt)
             print("average score:",i.average)

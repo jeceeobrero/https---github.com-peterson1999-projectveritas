@@ -4,6 +4,8 @@ from django.views.generic import View
 from article.URLForms import URLForm
 import requests
 import datetime
+from newsOutlet.NewsOutlet import NewsOutlets
+
 
 # Create your views here.
 val = None
@@ -11,7 +13,13 @@ val = None
 
 class AllOutletsIndexView(View):
     def get(self, request):
-        return render(request, 'alloutlets.html')
+        outlets = NewsOutlets.getNewsOutletAll()
+
+        context = {
+            'alloutlets': outlets,
+        }
+       
+        return render(request, 'alloutlets.html', context)
 
     def post(self, request):
         form = URLForm(request.POST)

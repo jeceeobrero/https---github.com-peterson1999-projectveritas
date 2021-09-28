@@ -7,6 +7,7 @@ import requests
 from article.Article import Article
 import datetime
 from article.credibility import Credibility
+from newsOutlet.NewsOutlet import NewsOutlets
 
 # Create your views here.
 
@@ -112,11 +113,14 @@ class HomeIndexView(View):
 
         # outlets
 
-        outlet_name = ["GMA", "ABS-CBN", "CNN Philippines"]
+        outlets = NewsOutlets.getNewsOutletAll()
+
+
+        #outlet_name = ["GMA", "ABS-CBN", "CNN Philippines"]
         outlet_logo = ["../static/images/gmalogo.jpg",
                        "../static/images/gmalogo.jpg", "../static/images/gmalogo.jpg"]
-        outlet_score = [86.75, 90.20, 91.73]
-        outletList = list(zip(outlet_name, outlet_logo, outlet_score))
+        #outlet_score = [86.75, 90.20, 91.73]
+        outletList = list(zip(outlets, outlet_logo))
 
         context = {'city_weather': city_weather,
                    'phil_covid': phil_covid,
