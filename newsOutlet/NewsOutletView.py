@@ -4,13 +4,21 @@ from django.views.generic import View
 from newsOutlet.NewsOutlet import NewsOutlets
 from article.Article import Article
 from article.credibility import Credibility
+from json import dumps
 
 
 class NewsOutletView(View):
     def showOutletPerformance(request, outlet_id):
         print("HELLO")
-        month_filter, year_filter, day_filter = NewsOutlets.filterHistory(
+        month_filter, year_filter, day_filter, latest = NewsOutlets.filterHistory(
             outlet_id)  # pass outlet id here and get 3 querysets
+        # print("latest", latest)
+        for i in latest:
+            print("nonsensational:", i.nonsensational)  # filter date
+            print("nonsensational:", i.nonsatire)  # filter date
+            print("nonsensational:", i.nonsensational)  # filter date
+            print("nonsensational:", i.credibility)
+
         for i in month_filter:
             print("filter-date:", i.filt)  # filter date
             print("average score:", i.average)  # average score for that date
@@ -21,6 +29,29 @@ class NewsOutletView(View):
         dates = []
         images = []
 
+        monthDates = []
+        monthValues = []
+
+        dayDates = []
+        dayValues = []
+
+        yearDates = []
+        yearValues = []
+        for i in month_filter:
+            monthDates.append(i.filt)
+            monthValues.append(i.average)
+
+        for i in day_filter:
+            dayDates.append(i.filt)
+            dayValues.append(i.average)
+
+        for i in year_filter:
+            yearDates.append(i.filt)
+            yearValues.append(i.average)
+
+        print("months ", monthDates)
+        print("values ", monthValues)
+
         for x in articles:
             print(x.url)
             title, date, image = Credibility.getTID(Credibility, x.url)
@@ -29,12 +60,28 @@ class NewsOutletView(View):
             images.append(image)
 
         xlist = list(zip(articles, titles, dates, images))
-        context = {
-            'filterMonth': month_filter,
-            'filterYear': year_filter,
-            'filterDay': day_filter,
-            'articles': xlist,
+        print("cred", latest[0].credibility)
+        dataDictionary = {
+            'month_dates': monthDates,
+            'month_values': monthValues,
+            'day_dates': dayDates,
+            'day_values': dayValues,
+            'year_dates': yearDates,
+            'year_values': yearValues
         }
+
+        cred = [{
+            'nonopinion': round(latest[0].nonopinion, 2),
+            'nonsatire': round(latest[0].nonsatire, 2),
+            'nonsensational': round(latest[0].nonsensational, 2),
+            'credibility': round(latest[0].credibility, 2),
+        }]
+        context = {
+            'data': dumps(dataDictionary),
+            'articles': xlist,
+            'latest': cred
+        }
+        print(context)
         # return HttpResponse('NewsOutletView')
         return render(request, 'outlet.html', context)
 
