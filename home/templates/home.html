@@ -74,6 +74,7 @@
                     {% endif %}
                 </div>
             </div>
+<<<<<<< HEAD:home/templates/home.html
             
             <div class="col-12 border border-0 rounded mt-4 mb-4 p-3">
                 <div class="d-flex flex-wrap justify-content-between">
@@ -94,6 +95,27 @@
                                         </div>
                                     </div>
                                 </div>
+=======
+            <div class="col-12 border border-0 rounded mt-4 mb-4 p-3">
+                <div class="row">
+                    <span class="col-9 headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">Top News Outlets:</h4></span>
+                    <span class="col-3 headerBlue p-0"><a href="#" style="font-size: 0.9rem;">View all outlets</a></span>
+                </div>
+                <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap">
+                    {% if top_outlets %}
+                        {% for outlet_name, outlet_logo, outlet_score in top_outlets %}
+                                <div class="col-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
+                                    <div class="row d-flex flex-nowrap">
+                                        <div class="col-6 p-0">
+                                            <a href="#" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. <img class="border rounded" src="{{outlet_logo}}" width=15%> {{outlet_name}}</a>
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <span class="px-2 badge badge-primary badge-pill">{{outlet_score|floatformat:2}}% Credible</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+>>>>>>> e61dffd253ee81a204b918f47d1d5571625fac97:homepage/templates/home.html
                         {% endfor %}
                     {% else %}
                     <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
