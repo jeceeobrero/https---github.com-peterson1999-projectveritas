@@ -1,3 +1,4 @@
+from django.db.models import query
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -5,6 +6,7 @@ from article.URLForms import URLForm
 import requests
 import datetime
 from newsOutlet.NewsOutlet import NewsOutlets
+from newsOutlet.NewsOutletView import NewsOutletView
 
 
 # Create your views here.
@@ -14,11 +16,15 @@ val = None
 class AllOutletsIndexView(View):
     def get(self, request):
         outlets = NewsOutlets.getNewsOutletAll()
-
+        outlet_logo = ["../static/images/gmalogo.jpg",
+                       "../static/images/gmalogo.jpg"]
+        outlet_desc = ["Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News.",
+                       "Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News."]
+        outletList = list(zip(outlets, outlet_logo, outlet_desc))
         context = {
-            'alloutlets': outlets,
+            'outlets': outletList,
         }
-       
+
         return render(request, 'alloutlets.html', context)
 
     def post(self, request):
