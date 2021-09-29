@@ -9,7 +9,7 @@ from json import dumps
 
 class NewsOutletView(View):
     def showOutletPerformance(request, outlet_id):
-        print("HELLO")
+        # print("HELLO")
         month_filter, year_filter, day_filter, latest = NewsOutlets.filterHistory(
             outlet_id)  # pass outlet id here and get 3 querysets
         # print("latest", latest)
@@ -89,7 +89,8 @@ class NewsOutletView(View):
         print(name)
         if request.method == "POST":
             id = request.POST.get("outletID")
-            print(id)
+        else:
+            id = 0
         return NewsOutletView.showOutletPerformance(request, id)
 
     def __getArticleList(outlet_id):
