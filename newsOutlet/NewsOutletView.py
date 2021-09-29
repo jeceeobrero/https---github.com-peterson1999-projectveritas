@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.views.generic import View
 from newsOutlet.NewsOutlet import NewsOutlets
@@ -8,9 +8,8 @@ from json import dumps
 
 
 class NewsOutletView(View):
-    def showOutletPerformance(request):
+    def showOutletPerformance(request, outlet_id):
         print("HELLO")
-        outlet_id = 0
         month_filter, year_filter, day_filter, latest = NewsOutlets.filterHistory(
             outlet_id)  # pass outlet id here and get 3 querysets
         # print("latest", latest)
@@ -24,7 +23,7 @@ class NewsOutletView(View):
             print("filter-date:", i.filt)  # filter date
             print("average score:", i.average)  # average score for that date
 
-        articles = NewsOutletView.__getArticleList(0)
+        articles = NewsOutletView.__getArticleList(outlet_id)
 
         titles = []
         dates = []
@@ -85,6 +84,13 @@ class NewsOutletView(View):
         print(context)
         # return HttpResponse('NewsOutletView')
         return render(request, 'outlet.html', context)
+
+    def seeOutlet(request, name):
+        print(name)
+        if request.method == "POST":
+            id = request.POST.get("outletID")
+            print(id)
+        return NewsOutletView.showOutletPerformance(request, id)
 
     def __getArticleList(outlet_id):
         print("HIHIHIH")

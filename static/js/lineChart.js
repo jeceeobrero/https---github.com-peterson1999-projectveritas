@@ -101,8 +101,9 @@ function filterData(){
     let indexenddate = 0;
     
     for (let i = 0; i < indexdate.length; i++) {
-        if(String(indexdate[i]) <= startdate){
+        if(String(indexdate[i]) >= startdate){
             indexstartdate=i;
+            break;
         }
     }
 

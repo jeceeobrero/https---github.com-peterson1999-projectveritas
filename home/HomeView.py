@@ -116,10 +116,8 @@ class HomeIndexView(View):
         outlets = NewsOutlets.getNewsOutletAll()
 
 
-        #outlet_name = ["GMA", "ABS-CBN", "CNN Philippines"]
         outlet_logo = ["../static/images/gmalogo.jpg",
                        "../static/images/gmalogo.jpg", "../static/images/gmalogo.jpg"]
-        #outlet_score = [86.75, 90.20, 91.73]
         outletList = list(zip(outlets, outlet_logo))
 
         context = {'city_weather': city_weather,
