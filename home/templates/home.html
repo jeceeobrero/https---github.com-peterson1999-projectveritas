@@ -86,7 +86,8 @@
                                 <div class="col-12 col-md-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
                                     <div class="d-flex justify-content-between flex-nowrap">
                                         <div>
-                                            <a href="../newsoutlet/" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a>
+                                            <a href="#" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a>
+                                            {% comment %} <a href="../newsoutlet/{{outlet.outlet_name}}" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a> {% endcomment %}
                                             <span class="px-2 badge badge-primary badge-pill">{{outlet.credibility_score|floatformat:2}}% Credible</span>
                                         </div>
                                         <div>

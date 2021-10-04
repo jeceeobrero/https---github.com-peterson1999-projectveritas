@@ -8,8 +8,8 @@
 {% block content %}
 <div class="col row container px-0 mt-5 mx-0" onload="loadLine()">
     <div class="d-none" id="jsonData" data-json="{{ data }}">{{latest}}</div>
-    <div class="col-12 mainContent mainOutlet container-fluid mx-0 px-5">
-        <h2 class="d-inline font-weight-bold mt-5">GMA News Online</h2>
+    <div class="col-12 mainContent mainOutlet container-fluid mx-0 px-5 mb-5">
+        <h2 class="d-inline font-weight-bold mt-5">{{name}}</h2>
         <img class="d-inline" src="https://lh3.googleusercontent.com/8GleZQjeJCLTgJ15oi46EG6mSpoLq48dycNE8Zfdxan2-_2IaFxqI9HfC6f0bhf3DKQ" width="60">
             <div class="row justify-content-md-center mt-2">
                 <div class="col col-md-3 col-sm-12 border border-1 rounded py-4 px-2 overflow-hidden" id="donutchart">
@@ -81,7 +81,7 @@
                                     <div class="col-md-8">
                                         <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold" target="_blank">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
                                         <p class="mt-1">
-                                            GMA News <span class="badge badge-primary badge-pill">93% Credible</span>    
+                                            {{name}} <span class="badge badge-primary badge-pill">{{latest.0.credibility}}% Credible</span>    
                                             {% if dates != None %}
                                             <small>{{dates}} days ago</small>
                                             {% endif %}

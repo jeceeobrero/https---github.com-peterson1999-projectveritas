@@ -8,7 +8,7 @@ from json import dumps
 
 
 class NewsOutletView(View):
-    def showOutletPerformance(request, outlet_id):
+    def showOutletPerformance(request, outlet_id, name):
         # print("HELLO")
         month_filter, year_filter, day_filter, latest = NewsOutlets.filterHistory(
             outlet_id)  # pass outlet id here and get 3 querysets
@@ -24,6 +24,8 @@ class NewsOutletView(View):
             print("average score:", i.average)  # average score for that date
 
         articles = NewsOutletView.__getArticleList(outlet_id)
+
+        name = name.upper()
 
         titles = []
         dates = []
@@ -79,7 +81,8 @@ class NewsOutletView(View):
         context = {
             'data': dumps(dataDictionary),
             'articles': xlist,
-            'latest': cred
+            'latest': cred,
+            'name': name
         }
         print(context)
         # return HttpResponse('NewsOutletView')
@@ -87,11 +90,10 @@ class NewsOutletView(View):
 
     def seeOutlet(request, name):
         print(name)
+        id = 0
         if request.method == "POST":
             id = request.POST.get("outletID")
-        else:
-            id = 0
-        return NewsOutletView.showOutletPerformance(request, id)
+        return NewsOutletView.showOutletPerformance(request, id, name)
 
     def __getArticleList(outlet_id):
         print("HIHIHIH")
