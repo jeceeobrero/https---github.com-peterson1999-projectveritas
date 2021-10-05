@@ -1,161 +1,31 @@
+from django.db.models import query
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from article.URLForms import URLForm
 import requests
 import datetime
+from newsOutlet.NewsOutlet import NewsOutlets
+from newsOutlet.NewsOutletView import NewsOutletView
+
 
 # Create your views here.
 val = None
 
 
-class CoronaIndexView(View):
+class AllOutletsIndexView(View):
     def get(self, request):
-        return render(request, 'corona.html')
+        outlets = NewsOutlets.getNewsOutletAll()
+        outlet_logo = ["../static/images/gmalogo.jpg",
+                       "../static/images/gmalogo.jpg"]
+        outlet_desc = ["Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News.",
+                       "Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News."]
+        outletList = list(zip(outlets, outlet_logo, outlet_desc))
+        context = {
+            'outlets': outletList,
+        }
 
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class WorldIndexView(View):
-    def get(self, request):
-        return render(request, 'world.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class PhilIndexView(View):
-    def get(self, request):
-        return render(request, 'phil.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class HealIndexView(View):
-    def get(self, request):
-        return render(request, 'health.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class BusIndexView(View):
-    def get(self, request):
-        return render(request, 'business.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class TechIndexView(View):
-    def get(self, request):
-        return render(request, 'technology.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class EnterIndexView(View):
-    def get(self, request):
-        return render(request, 'entertainment.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class SportsIndexView(View):
-    def get(self, request):
-        return render(request, 'sports.html')
-
-    def post(self, request):
-        form = URLForm(request.POST)
-        if form.is_valid():
-            urlTest = request.POST.get("url")
-            global val
-
-            def val():
-                return urlTest
-            return redirect('article:article')
-        else:
-            print(form.errors)
-            return HttpResponse("Not Valid!")
-
-
-class SciIndexView(View):
-    def get(self, request):
-        return render(request, 'science.html')
+        return render(request, 'alloutlets.html', context)
 
     def post(self, request):
         form = URLForm(request.POST)

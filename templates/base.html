@@ -20,98 +20,104 @@
     {% block styles %}
     {% endblock %}
   </head>
+
+  
   <body>
 
     <!--START OF NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-light bg-white mt-4 mx-0 d-flex justify-content-between shadow-sm sticky-top ">
          
         <button 
-            class="navbar-brand align-self-start pl-4 ml-3 toggler d-inline"
+            class="navbar-brand align-self-start toggler d-inline"
             type="button" id="sideButton">
             {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
-                <a href="../home/top"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
+                <a href="../home"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
             {% else %}
                 <span class="navbar-toggler-icon"></span>    
             {% endif %}
             
         </button> 
         <a class="navbar-brand align-self-start"
-            href="../homepage/main">
-           <h3 class="headerBlue font-weight-bold d-inline">project veritas</h3>
+            href="../home">
+           <h3 class="headerBlue font-weight-bold d-inline" id="logo">project veritas</h3>
         </a>
         <button 
         class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="background-image: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');"></span>
         </button>
 
-        <div class="navbar-collapse collapse" id="navbarNavDropdown" style="padding-left: 10%; padding-right: 10%;">
-            <div class="row">
-                <div class = "col-12">
-                <div class="px-0 pt-3 container-fluid">
-                    <form  action = "{% url 'article:article' %}" method="post">
-                        {% csrf_token %}
-                        <div>
-                            <div class="input-group">
-                                <input type="text" name="url" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
-                                <div class="input-group-append">
-                                    <button class="btn bgBlue text-white" type="submit" id="check" name="check">Check</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class = "col-12">
-                <div class="px-0 pt-3 container-fluid">
-                    <form  action = "{% url 'search:search' %}" method="post">
-                        {% csrf_token %}
-                        <div class="my-2 form-inline d-flex flex-nowrap justify-content-between">
-                            <div class="d-none d-sm-none d-md-block d-lg-block">
+        <div class="navbar-collapse collapse" id="navbarNavDropdown">
+            <div class="mx-auto px-3">
+                <div class="row">
+                    <div class = "col-12">
+                    <div class="px-0 pt-3 container-fluid">
+                        <form  action = "{% url 'article:article' %}" method="post">
+                            {% csrf_token %}
+                            <div>
                                 <div class="input-group">
-                                    <input type="text" name="topic" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
+                                    <input type="text" name="url" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Check URL" aria-label="URL">
                                     <div class="input-group-append">
-                                        <button class="btn bgBlue text-white" type="submit" id="search" name="search">Search</button>
+                                        <button class="btn bgBlue text-white" type="submit" id="check" name="check">Check</button>
                                     </div>
                                 </div>
                             </div>
-                            <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
-                            <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
-                            <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
-                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class = "col-12">
+                    <div class="px-0 container-fluid">
+                        <form  action = "{% url 'search:search' %}" method="post">
+                            {% csrf_token %}
+                            <div class="my-2 form-inline d-flex flex-nowrap justify-content-between">
+                                <div class="d-none d-sm-none d-md-block d-lg-block">
+                                    <div class="input-group">
+                                        <input type="text" name="topic" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn bgBlue text-white" type="submit" id="search" name="search">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
+                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
+                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
+                            </div>
 
-                        <div class="mt-2 d-none d-sm-none d-md-block d-lg-none">
-                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
-                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
-                        </div>
+                            <div class="mt-2 d-none d-sm-none d-md-block d-lg-none">
+                                <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
+                            </div>
 
-                        <div class="mt-2 d-block d-sm-block d-md-none">
-                            <div class="input-group">
-                                <input type="text" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn bgBlue text-white" type="button">Search</button>
+                            <div class="mt-2 d-block d-sm-block d-md-none">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-lg border-0 py-3 rounded bgGray" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn bgBlue text-white" type="button">Search</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-2 d-block d-sm-block d-md-none">
-                            <a class="px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
-                            <a class="px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
-                            <a class="px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
-                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
-                            <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
-                        </div>    
-                    </form>
+                            <div class="mt-2 d-block d-sm-block d-md-none">
+                                <a class="px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
+                            </div>    
+                        </form>
+                    </div>
+                    </div>
                 </div>
-                </div>
-            </div>
+            </div>  
         </div>
 
-        <div class="col-1 align-self-start  d-none d-sm-none d-md-none d-lg-block">
-            <button class="toggler text-primary mr-1" type="button">
-                <i class="bi bi-bookmark-fill" title="Edit"></i>
-            </button>            
-            <a href="" alt="User">
-                <img src="{% static 'images/user.png' %}" height=32>
-            </a>                
+        <div class="col-1 align-self-start d-none d-sm-none d-md-none d-lg-block">
+            <div class="d-inline-flex">
+                <button class="toggler text-primary mr-1" type="button">
+                    <i class="bi bi-bookmark-fill" title="Edit"></i>
+                </button>            
+                <a href="#" alt="User" class="px-2">
+                    <img src="{% static 'images/user.png' %}" height=32>
+                </a>     
+            </div>
         </div>
         
     </nav>
@@ -123,26 +129,26 @@
             <!--START OF SIDEBAR-->
             {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
             {% else %}
-            <div class="mt-2 pl-5 pr-2 pt-4" id="sideBar" style="z-index: 1;">
+            <div class="pl-5 pr-2 pt-4" id="sideBar">
                 <div style="width:250px" id="newsSecs">
-                    <a href="../homepage/main" 
-                    {% if request.path == '/home/top'  %} 
+                    <a href="../home" 
+                    {% if request.path == '/home/'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-newspaper mr-4" title="Top Stories"></i>Top Stories</span></a>
 
-                    <a href="../home/corona" 
-                        {% if request.path == '/home/corona'  %} 
+                    <a href="../newssection/corona" 
+                        {% if request.path == '/newssection/corona'  %} 
                             class="nav-link font-weight-bold rounded mt-2 text-dark active"
                         {% else %}
                             class="nav-link text-secondary font-weight-bold rounded mt-2"
                         {% endif %} 
                     ><span><i class="bi bi-slack mr-4" title="Corona Virus"></i>Corona Virus</span></a>
             
-                    <a href="../home/world" 
-                    {% if request.path == '/home/world'  %} 
+                    <a href="../newssection/world" 
+                    {% if request.path == '/newssection/world'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -150,8 +156,8 @@
                     ><span><i class="fa fa-globe mr-4" title="World"></i>World</h6></a>
                 
                 
-                    <a href="../home/philippines" 
-                    {% if request.path == '/home/philippines'  %} 
+                    <a href="../newssection/philippines" 
+                    {% if request.path == '/newssection/philippines'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -159,8 +165,8 @@
                     ><span><i class="bi bi-flag-fill mr-4" title="World"></i>Philippines</h6></a>
                     
 
-                    <a href="../home/health" 
-                    {% if request.path == '/home/health'  %} 
+                    <a href="../newssection/health" 
+                    {% if request.path == '/newssection/health'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -168,40 +174,40 @@
                     ><span><i class="bi bi-heart-fill mr-4" title="Health"></i>Health</h6></a>
                     
                 
-                    <a href="/home/business" 
-                    {% if request.path == '/home/business'  %} 
+                    <a href="/newssection/business" 
+                    {% if request.path == '/newssection/business'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-wallet-fill mr-4" title="Business"></i>Business</h6></a>
 
-                    <a href="/home/technology" 
-                    {% if request.path == '/home/technology'  %} 
+                    <a href="/newssection/technology" 
+                    {% if request.path == '/newssection/technology'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-gear-fill mr-4" title="Technology"></i>Technology</h6></a>
             
-                    <a href="/home/entertainment" 
-                    {% if request.path == '/home/entertainment'  %} 
+                    <a href="/newssection/entertainment" 
+                    {% if request.path == '/newssection/entertainment'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-joystick mr-4" title="Entertainment"></i>Entertainment</h6></a>
             
-                    <a href="/home/sports" 
-                    {% if request.path == '/home/sports'  %} 
+                    <a href="/newssection/sports" 
+                    {% if request.path == '/newssection/sports'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
                     {% endif %} 
                     ><span><i class="bi bi-vinyl-fill mr-4" title="Sports"></i>Sports</h6></a>
                     
-                    <a href="/home/science" 
-                    {% if request.path == '/home/science'  %} 
+                    <a href="/newssection/science" 
+                    {% if request.path == '/newssection/science'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"

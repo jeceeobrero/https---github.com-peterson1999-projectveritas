@@ -78,7 +78,7 @@ class Credibility():
 
         print("Here 6: get relevance score")
         #days = 0
-        rel_score, days = self.relevanceScore(self,news_date)
+        rel_score, days,pub_date = self.relevanceScore(self,news_date)
         if news_date == None:
             days = None
         overall_score = round((misleading_prediction +
@@ -89,7 +89,7 @@ class Credibility():
         print("sarcasm_text: "+ str(sarcasm_text_prediction))
         print("relevancy: "+ str(rel_score))
 
-        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days,news_topic
+        return misleading_prediction, opinion_prediction, round((sarcasm_prediction+sarcasm_text_prediction)/2,2), rel_score, overall_score, news_title, news_image,days,news_topic, pub_date
 
     def opinionScore(self, opinion, url, embed):
         new_model = load_model(opinion)
@@ -163,7 +163,7 @@ class Credibility():
     def relevanceScore(self,news_date):
         today = date.datetime.now()
         print(today)
-
+        newsDate = None
         if (news_date != None):
             newsDate = dateutil_parser.parse(str(news_date))
             newsDate = newsDate.replace(tzinfo=None)
@@ -193,7 +193,7 @@ class Credibility():
         if rel_score < 0:
             rel_score = 0
 
-        return rel_score, d
+        return rel_score, d, newsDate
 
     def get_max_length_url(self, df):
         """
@@ -322,11 +322,6 @@ class Credibility():
         Y = np.array(encoded_labels)
         return X, Y
 
-    def credtest(self, urlTest):
-        misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image = self.loadCredibility(
-            self, urlTest)
-        return misleading, opinion, sarcasm, rel_score, overall_score, news_title, news_image
-
     def getTID(self, url):
         article = Article(url)
         article.download()
@@ -335,11 +330,10 @@ class Credibility():
         news_image = article.top_image
         news_pub_date=article.publish_date
         news_date = None
-        if (news_date != None):
+        if (news_pub_date != None):
             today = date.datetime.now()
             newsDate = dateutil_parser.parse(str(news_pub_date))
             newsDate = newsDate.replace(tzinfo=None)
-            print(newsDate)
             rel = today - newsDate
             news_date = rel.days
 

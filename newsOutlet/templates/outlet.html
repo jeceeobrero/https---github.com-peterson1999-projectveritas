@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/outlet.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="col row container px-0 mt-5 mx-0" onload="loadLine()">
+    <div class="d-none" id="jsonData" data-json="{{ data }}">{{latest}}</div>
+    <div class="col-12 mainContent mainOutlet container-fluid mx-0 px-5 mb-5">
+        <h2 class="d-inline font-weight-bold mt-5">{{name}}</h2>
+        <img class="d-inline" src="https://lh3.googleusercontent.com/8GleZQjeJCLTgJ15oi46EG6mSpoLq48dycNE8Zfdxan2-_2IaFxqI9HfC6f0bhf3DKQ" width="60">
+            <div class="row justify-content-md-center mt-2">
+                <div class="col col-md-3 col-sm-12 border border-1 rounded py-4 px-2 overflow-hidden" id="donutchart">
+                    <span class="headerBlue font-weight-bold p-0 text-center"><h4 class="font-weight-bold">Live Credibility Performance</h4></span>
+                    <div >
+                        <canvas id="liveCredPerf"></canvas>
+                    </div>
+                    {% for metric in latest %}                    
+                    <div class="container-fluid px-3 pt-4">
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Non-Opinion</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">{{metric.nonopinion}}%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgBlue" role="progressbar" style="width: {{metric.nonopinion}}%" aria-valuenow="{{metric.nonopinion}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Non-Satire</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">{{metric.nonsatire}}%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgPurple" role="progressbar" style="width: {{metric.nonsatire}}%" aria-valuenow="{{metric.nonsatire}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Non-Sensational</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">{{metric.nonsensational}}%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgRed" role="progressbar" style="width: {{metric.nonsensational}}%" aria-valuenow="{{metric.nonsensational}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h6 class="font-weight-bold d-inline ">Overall Crediblity</h6>
+                            <h6 class="text-dark my-0 py-0 d-inline">{{metric.credibility}}%</h6>
+                            <div class="col-12 progress px-0">
+                                <div class="progress-bar bgOrange" role="progressbar" style="width: {{metric.credibility}}%" aria-valuenow="{{metric.credibility}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+                <div class="col col-md-8 col-sm-12 py-3 px-0 mx-auto yearChart" style="height: 600px;">
+                    <div class="d-flex justify-content-between flex-wrap mt-2">
+                        <h4 class="font-weight-bold d-inline m-0 my-1">
+                            <span class="headerBlue font-weight-bold p-0">Annual Credibility Performance</span></h4>
+                        <div class="d-inline-flex m-0 p-0 my-1">
+                            <input class="form-control form-control-sm mr-2" type="date" id="startdate" onchange="filterData()" value="2021-09-01">
+                            <input class="form-control form-control-sm mx-2" type="date" id="enddate" onchange="filterData()" value="2023-09-02">
+                            <select class="form-control form-control-sm mx-2" id="metric" onchange="filterData()">
+                                <option value="Day">Day</option>
+                                <option value="Month">Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas class="mx-auto pt-5" id="myChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="row justify-content-md-center list-group mt-5 pt-5">
+                <span class="headerBlue font-weight-bold p-0"><h4 class="font-weight-bold">News Articles:</h4></span>
+                {% if articles %}
+                    {% for article,titles,dates,images in articles %}
+                            <div class="list-group-item list-group-item-action flex-column align-items-start mt-3 border rounded">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <a href="{{article.url}}" class="mb-1 text-dark font-weight-bold" target="_blank">{{forloop.counter}}. {{titles}} <span class="badge badge-primary badge-pill">{{article.credibility_score}}% Credible</span></a>
+                                        <p class="mt-1">
+                                            {{name}} <span class="badge badge-primary badge-pill">{{latest.0.credibility}}% Credible</span>    
+                                            {% if dates != None %}
+                                            <small>{{dates}} days ago</small>
+                                            {% endif %}
+                                        </p>
+                                        <div class="d-block d-sm-block d-md-none"> 
+                                            <img class="img-fluid rounded" src="{{images}}" style="width:100%; min-width:200px">
+                                        </div>
+                                        <div class="mt-2 p-0">
+                                            <a class="showDropdown" id="{{article.id}}" href="#showResults-{{article.id}}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="showResults">
+                                                <span class="text-secondary font-weight-bold" id="credfont">View article's credibility scores</span>
+                                                <i id="dropIcon-{{article.id}}" class="text-secondary bi bi-caret-down-fill" title="Display Credibility Scores"></i>
+                                            </a>
+                                        </div>
+                                        <div class="collapse" id="showResults-{{article.id}}">
+                                            <div class="col-12 my-3">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                                        <h6 class="col-12 px-0 text-dark font-weight-bold">Relevancy     <span class="text-success">{{article.relevancy_score}}%</span></h6>
+                                                        <div class="col-12 progress px-0">
+                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{article.relevancy_score}}%" aria-valuenow="{{article.relevancy_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <h6 class="text-dark my-0 py-0">{{article.relevancy_score}}%</h6>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                                        <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Opinion     <span style="color:rgb(73, 100, 255)">{{article.nonopinion_score}}%</span></h6>
+                                                        <div class="col-12 progress px-0">
+                                                            <div class="progress-bar" role="progressbar" style="width: {{article.nonopinion_score}}%; background-color: rgb(73, 100, 255);" aria-valuenow="{{article.nonopinion_score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <h6 class="text-dark my-0 py-0">{{article.nonopinion_score}}%</h6>
+                                                    </div>
+                                                    <div class="mt-2 col-md-6 col-sm-12 col-xs-12">
+                                                        <h6 class="col-12 px-0 text-dark font-weight-bold">Non-Satire     <span style="color:blueviolet">{{article.nonsatire_score}}%</span></h6>
+                                                        <div class="col-12 progress px-0">
+                                                            <div class="progress-bar" role="progressbar" style="width: {{article.nonsatire_score}}%; background-color: blueviolet;" aria-valuenow="{{article.nonsatire_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                        </div>
+                                                        <h6 class="text-dark my-0 py-0">{{article.nonsatire_score}}%</h6>
+                                                    </div>
+                                                    <div class="mt-2 col-md-6 col-sm-12 col-xs-12">
+                                                        <h6 class="col-12 px-0 text-dark font-weight-bold">Nonsensational     <span style="color:rgb(232, 75, 75)">{{article.nonsensational_score}}%</span></h6>
+                                                        <div class="col-12 progress px-0">
+                                                            <div class="progress-bar" role="progressbar" style="width: {{article.nonsensational_score}}%; background-color: rgb(232, 75, 75)" aria-valuenow="{{article.nonsensational_score}}" aria-valuemin="0" aria-valuemax="100" ></div>
+                                                        </div>
+                                                        <h6 class="text-dark my-0 py-0">{{article.nonsensational_score}}%</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4 pl-3">
+                                                    <h5 class="text-dark font-weight-bold py-0">OVERALL CREDIBILITY: </h5>
+                                                    <h5 class="text-success font-weight-bold py-0 pl-3"> {{article.credibility_score}}%</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-md-block d-lg-block col-md-3 text-center mx-3 p-0 h-100">
+                                        <img class="img-fluid rounded" src="{{images}}" style="width:100%; min-width:200px">
+                                    </div>
+                                    </div>
+                                </div>
+                    {% endfor %}
+                {% else %}
+                <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                    <div class="row d-flex flex-nowrap">
+                        <h5>&nbsp&nbsp&nbspNo articles found.</h5>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+    </div>
+</div>
+{% endblock %}               
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="{% static 'js/donutChart.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/lineChart.js' %}" type="text/javascript"></script>
+{% endblock %}
+            
+            

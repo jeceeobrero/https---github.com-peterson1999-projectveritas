@@ -56,6 +56,7 @@ class SearchView(View):
                 for y in articles[x]:
                     title, date, image = Credibility.getTID(Credibility, y.url)
                     titles.append(title)
+                    print(date)
                     dates.append(date)
                     images.append(image)
 
