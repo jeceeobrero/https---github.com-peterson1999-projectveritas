@@ -13,6 +13,26 @@
             </div>
         </div>
         <div class="list-group mb-3">
+            {% if is_outlet %}
+                <form id="outlet_form-{{outlet.outlet_name}}" name="outlet_form-{{outlet.outlet_name}}" action="../newsoutlet/{{outlet.outlet_name}}" method="POST">
+                {% csrf_token %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mt-4 border rounded">
+                        <div class="row d-flex flex-nowrap">
+                            <div class="col-8">
+                                <input type="hidden" name="outletID" value="{{outlet.id}}"/>                            
+                                <button type="submit" class="btn btn-link mb-1 text-dark font-weight-bold">
+                                    <p class="m-0" style="font-size:1.3rem; display:inline-block">{{outlet.outlet_name}}</p>
+                                    <span class="ml-2 badge badge-primary badge-pill">{{outlet.credibility_score|floatformat:2}}% Credible</span>
+                                </button>
+                                <p class="mt-1">
+                                <small>{{outlet_desc}}</small>
+                                </p>
+                            </div>
+                            <img class="border rounded ml-4" src="{{outlet_logo}}" width=25%>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
             {% if articles %}
                 {% for article, titles,dates,images in articles %}
                     {% for y in article %}

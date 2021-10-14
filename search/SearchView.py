@@ -8,6 +8,7 @@ import requests
 from .Keyword import Keywords
 from article.Article import Article
 from article.credibility import Credibility
+from newsOutlet.NewsOutlet import NewsOutlets
 # Create your views here.
 
 
@@ -16,9 +17,19 @@ class SearchView(View):
         if 'search' in request.POST:
 
             form = SearchForm(request.POST)
+            is_outlet = False
+
 
             searchname = form.getKeyWord()
             print(searchname)
+            if (NewsOutlets.isNewsOutlet(searchname.lower())):
+                is_outlet=True
+                print(is_outlet)
+                outlet_id=NewsOutlets.getNewsOutletID(searchname.lower())
+            else:
+                outlet_id=-1
+            outlet = NewsOutlets.getNewsOutlet(outlet_id) 
+            print("outlet: ",outlet.values_list('outlet_name', flat=True))
             keywordobjects= Keywords.getArticleList(searchname)
 
             articles=[]
@@ -61,9 +72,18 @@ class SearchView(View):
                     images.append(image)
 
             xlist = list(zip(articles, titles, dates, images))
-
+            outlet_desc = ""
+            outlet_logo = ""
+            if is_outlet:
+                outlet = outlet[0]
+                outlet_logo = "../static/images/gmalogo.jpg"
+                outlet_desc = "Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News."
             context = {
                 'articles': xlist,
+                'outlet':outlet,
+                'outlet_logo':outlet_logo,
+                'outlet_desc':outlet_desc,
+                'is_outlet': is_outlet #In frontend, maybe check first if is_outlet is true before getting values of outlet variable.
             }
 
             #print(articles[0][0].id)

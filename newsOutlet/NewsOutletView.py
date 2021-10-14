@@ -10,6 +10,7 @@ from json import dumps
 class NewsOutletView(View):
     def showOutletPerformance(request, outlet_id, name):
         # print("HELLO")
+        
         month_filter, year_filter, day_filter, latest = NewsOutlets.filterHistory(
             outlet_id)  # pass outlet id here and get 3 querysets
         # print("latest", latest)
