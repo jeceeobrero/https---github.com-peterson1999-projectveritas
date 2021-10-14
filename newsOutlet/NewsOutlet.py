@@ -36,6 +36,11 @@ class NewsOutlets(models.Model):
     def getNewsOutlet(outlet_id):
         return NewsOutlets.objects.filter(id=outlet_id)
 
+    def isNewsOutlet(outlet_name):
+        return NewsOutlets.objects.filter(outlet_name=outlet_name).count() > 0
+    def getNewsOutletID(outlet_name):
+        return NewsOutlets.objects.get(outlet_name=outlet_name).id
+
     def getNewsOutletAll():
         return NewsOutlets.objects.order_by('-credibility_score')
 
