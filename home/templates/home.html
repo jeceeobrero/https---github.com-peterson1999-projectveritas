@@ -110,16 +110,15 @@
     <div class="col-md-4 d-none d-md-block container-fluid mx-0 px-3">
         <!-- COVID -->
         <div class="card">
-            <h5 class="card-header bg-white p-3">COVID-19 Update: Philippines</h5>
+            <h5 class="card-header bg-white p-3">COVID-19 Update: Philippines ({{ phil_covid.month }} {{ phil_covid.year }})</h5>
             <div class="card-body">
                 <div class="d-flex justify-content-around">
                         <div class="d-flex justify-content-center align-items-center" style="width:25%">
-                            <img class="img-fluid" src="{% static 'images/virus.png' %}" style="width:80px;height:80px;min-width:20px;min-height:20px;">
+                            <img class="img-fluid" src="{% static 'images/virus.png' %}" style="width:60px;height:60px;min-width:20px;min-height:20px;">
                         </div>
                         <div class="col">
-                            <h5 class="card-text my-1">April</h5>
+                            <h4 class="my-0 py-0">Total Cases </h4>
                             <h4 class="card-text my-0 py-0 font-weight-bold">{{ phil_covid.infected }}</h4>    
-                            <h4 class="my-0 py-0">Total Cases <i class="{{ phil_covid.icon }} text-success"></i> </h4>
                         </div>
                 </div>
                 <br>
@@ -127,6 +126,10 @@
                     <div class="col bg-danger p-2 mx-1 my-1 round" style="border-radius: 5px;">
                         <h6 class="card-text my-1 text-white text-center">Active Cases</h6>
                         <h6 class="card-text text-white text-center font-weight-bold">{{ phil_covid.active}}</h6>
+                    </div>
+                    <div class="col bg-primary p-2 mx-1 my-1 round" style="border-radius: 5px;">
+                        <h6 class="card-text my-1 text-white text-center">Total Tested</h6>
+                        <h6 class="card-text text-white text-center font-weight-bold">{{ phil_covid.tested}}</h6>
                     </div>
                     <div class="col bg-success p-2 mx-1 my-1 round" style="border-radius: 5px;">
                         <h6 class="card-text my-1 text-white text-center">Total Recoveries</h6>

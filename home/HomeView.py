@@ -29,6 +29,8 @@ class HomeIndexView(View):
         if not flag:
             r = requests.get(url.format(city)).json()
 
+        print(r)
+
         city_weather = {
             'city':
             city,
@@ -80,22 +82,23 @@ class HomeIndexView(View):
             r['list'][4]['weather'][0]['icon'],
         }
 
-        url2 = 'https://api.covid19api.com/live/country/philippines/status/confirmed/date/2020-05-01T13:13:30Z'
+        url2 = 'https://api.apify.com/v2/key-value-stores/lFItbkoNDXKeSWBBA/records/LATEST?disableRedirect=true'
         if not flag:
             r2 = requests.get(url2.format()).json()
 
-        icon = ""
-        if r2[-1]['Confirmed'] >= r2[-2]['Confirmed']:
-            icon = "bi bi-arrow-up-right"
-        else:
-            icon = "bi bi-arrow-down-left"
-
+        date = r2['lastUpdatedAtApify']
+        datem = datetime.datetime.strptime(
+            date[0:7], "%Y-%m")
+        year = datem.year
+        month = datem.strftime("%b")
         phil_covid = {
-            'infected': format(r2[-1]['Confirmed'], ',d'),
-            'icon': icon,
-            'active': format(r2[-1]['Active'], ',d'),
-            'recovered': format(r2[-1]['Recovered'], ',d'),
-            'deceased': format(r2[-1]['Deaths'], ',d'),
+            'infected': format(r2['infected'], ',d'),
+            'active': format(r2['activeCases'], ',d'),
+            'tested': format(r2['tested'], ',d'),
+            'recovered': format(r2['recovered'], ',d'),
+            'deceased': format(r2['deceased'], ',d'),
+            'month': month,
+            'year': year
         }
         # articles
         top_articles = HomeIndexView.getTopArticles()
@@ -114,7 +117,6 @@ class HomeIndexView(View):
         # outlets
 
         outlets = NewsOutlets.getNewsOutletAll()
-
 
         outlet_logo = ["../static/images/gmalogo.jpg",
                        "../static/images/gmalogo.jpg", "../static/images/gmalogo.jpg"]
