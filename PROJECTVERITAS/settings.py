@@ -137,8 +137,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# STATIC_URL = '/static/'
-STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
+STATIC_URL = '/static/'
+# STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
 
 MEDIA_URL = '/images/'
 
@@ -154,7 +154,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATICFILES_ROOT = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
