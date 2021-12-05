@@ -161,4 +161,3 @@ STATICFILES_ROOT = [os.path.join(BASE_DIR, 'static')]
 
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
-
