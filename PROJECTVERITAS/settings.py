@@ -24,7 +24,7 @@ SECRET_KEY = '+jtjn8bc47w#&$9ljo0g)$sw67$tdsbsdwh$1m+@jzag_(=xr)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['projectveritas.herokuapp.com', '169.254.129.3']
+ALLOWED_HOSTS = ['projectveritas.herokuapp.com']
 
 # Application definition
 
@@ -159,6 +159,6 @@ STATICFILES_ROOT = [os.path.join(BASE_DIR, 'static')]
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
 
-# STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
 
