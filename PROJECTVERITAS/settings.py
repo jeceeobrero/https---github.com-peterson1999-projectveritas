@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['projectveritas.herokuapp.com', '169.254.129.3']
 
 INSTALLED_APPS = [
     # "whitenoise.runserver_nostatic",
-    'django-storages',
+    'storages',
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles', 'home',
