@@ -24,7 +24,7 @@ SECRET_KEY = '+jtjn8bc47w#&$9ljo0g)$sw67$tdsbsdwh$1m+@jzag_(=xr)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['projectveritas.azurewebsites.net', '169.254.129.3']
+ALLOWED_HOSTS = ['projectveritas.herokuapp.com', '169.254.129.3']
 
 # Application definition
 
@@ -154,7 +154,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_ROOT = [os.path.join(BASE_DIR, 'static')]
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
