@@ -22,13 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '+jtjn8bc47w#&$9ljo0g)$sw67$tdsbsdwh$1m+@jzag_(=xr)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['projectveritas.azurewebsites.net', '169.254.129.3']
 
 # Application definition
 
 INSTALLED_APPS = [
+    # "whitenoise.runserver_nostatic",
+    'storages',
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles', 'home',
@@ -37,12 +39,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
 ]
 
 ROOT_URLCONF = 'PROJECTVERITAS.urls'
@@ -68,6 +71,20 @@ WSGI_APPLICATION = 'PROJECTVERITAS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'projectveritas',
+#         'USER': 'innovateam',
+#         'PASSWORD': 'Password123',
+#         'HOST': 'projectveritas.mysql.database.azure.com',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#         "init_command": "SET foreign_key_checks = 0;",
+#         },
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -78,7 +95,7 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
         "init_command": "SET foreign_key_checks = 0;",
-         },
+        },
     }
 }
 
@@ -120,10 +137,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+STATIC_URL = os.environ.get("DJANGO_STATIC_URL", "/static/")
 
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+WS_ACCESS_KEY_ID = 'AKIAQCJNWKFW7JR4PV6C'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'projectveritas'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
+
+# STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "./static/")
+

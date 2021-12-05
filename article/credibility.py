@@ -8,6 +8,7 @@ from tensorflow.keras.layers import Dense, LSTM
 from tensorflow.keras.models import Model
 from keras.models import load_model
 from newspaper import Article
+from newspaper import Config
 import datetime as date
 from dateutil import parser as dateutil_parser
 import os
@@ -19,13 +20,14 @@ class Credibility():
         print("Here 1:load everything")
         #embed = tf.saved_model.load('home\saved_model.pb')
         #os.environ["TFHUB_MODEL_LOAD_FORMAT"] = "UNCOMPRESSED"
-        os.environ["TFHUB_CACHE_DIR"] = 'D:/Dev/News Aggregator/tmp/tfhub'
-        print("success1")
-        handle = "https://tfhub.dev/google/Wiki-words-250/2"
-        print("success2")
-        hashlib.sha1(handle.encode("utf8")).hexdigest()
-        print("success3")
-        embed = hub.load("https://tfhub.dev/google/Wiki-words-250/2")
+        # os.environ["TFHUB_CACHE_DIR"] = 'D:/Dev/News Aggregator/tmp/tfhub'
+        # print("success1")
+        # handle = "https://tfhub.dev/google/Wiki-words-250/2"
+        # print("success2")
+        # hashlib.sha1(handle.encode("utf8")).hexdigest()
+        # print("success3")
+        # embed = hub.load("https://tfhub.dev/google/Wiki-words-250/2")
+        embed = hub.KerasLayer("Dev/News Aggregator/tmp/tfhub")
         print("success4")
         nltk.download('punkt')
 
@@ -35,7 +37,10 @@ class Credibility():
         sarcasm_text='article\model_sarcasm_text.h5'
 
         print("Here 2:parse article and build model")
-        article = Article(url)
+        user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+        config = Config()
+        config.browser_user_agent = user_agent
+        article = Article(url, config=config)
         article.download()
         article.parse()
         news_title = article.title
@@ -323,7 +328,10 @@ class Credibility():
         return X, Y
 
     def getTID(self, url):
-        article = Article(url)
+        user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+        config = Config()
+        config.browser_user_agent = user_agent
+        article = Article(url, config=config)
         article.download()
         article.parse()
         news_title = article.title

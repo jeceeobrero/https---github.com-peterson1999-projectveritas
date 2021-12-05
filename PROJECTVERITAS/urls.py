@@ -16,12 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', include('home.urls', namespace="home")),
+    path('', include('home.urls', namespace="home")),
     path('article/', include('article.urls', namespace="article")),
     path('search/', include('search.urls', namespace="search")),
     path('newssection/', include('newssection.urls', namespace="newssection")),
     path('newsoutlet/', include('newsOutlet.urls', namespace="newsOutlet")),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
