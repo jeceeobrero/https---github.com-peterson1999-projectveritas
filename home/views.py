@@ -16,10 +16,11 @@ val = None
 class AllOutletsIndexView(View):
     def get(self, request):
         outlets = NewsOutlets.getNewsOutletAll()
-        outlet_logo = ["../static/images/gmalogo.jpg",
-                       "../static/images/gmalogo.jpg"]
-        outlet_desc = ["Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News.",
-                       "Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News."]
+        outlet_logo = []
+        outlet_desc = []
+        for i in range(len(outlets)):
+            outlet_logo.append("../static/images/gmalogo.jpg")
+            outlet_desc.append("Get the latest news on the Philippines and the world: News, Business, Overseas, Entertainment, Sports and Lifestyle in text, video, photos and etc. on GMA News.")
         outletList = list(zip(outlets, outlet_logo, outlet_desc))
         context = {
             'outlets': outletList,

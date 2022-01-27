@@ -11,9 +11,6 @@ from newspaper import Article
 from newspaper import Config
 import datetime as date
 from dateutil import parser as dateutil_parser
-import os
-import hashlib
-
 
 class Credibility():
     def loadCredibility(self, url):
@@ -26,18 +23,18 @@ class Credibility():
         # print("success2")
         # hashlib.sha1(handle.encode("utf8")).hexdigest()
         # print("success3")
-        # embed = hub.load("https://tfhub.dev/google/Wiki-words-250/2")
-        embed = hub.KerasLayer("Dev/News Aggregator/tmp/tfhub")
+        embed = hub.load("https://tfhub.dev/google/Wiki-words-250/2")
+        # embed = hub.KerasLayer("Dev/News Aggregator/tmp/tfhub")
         print("success4")
         nltk.download('punkt')
 
-        misleading = 'article\model_misleading.h5'
-        opinion = 'article\model_opinion.h5'
-        sarcasm = 'article\model_sarcasm.h5'
-        sarcasm_text='article\model_sarcasm_text.h5'
+        misleading = 'article/model_misleading.h5'
+        opinion = 'article/model_opinion.h5'
+        sarcasm = 'article/model_sarcasm.h5'
+        sarcasm_text='article/model_sarcasm_text.h5'
 
         print("Here 2:parse article and build model")
-        user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+        user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
         config = Config()
         config.browser_user_agent = user_agent
         article = Article(url, config=config)
@@ -328,7 +325,7 @@ class Credibility():
         return X, Y
 
     def getTID(self, url):
-        user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+        user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
         config = Config()
         config.browser_user_agent = user_agent
         article = Article(url, config=config)

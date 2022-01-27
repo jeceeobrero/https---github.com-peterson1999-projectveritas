@@ -83,18 +83,24 @@
                 <div class="list-group mt-3 flex-column flex-md-row flex-md-wrap justify-content-between">
                     {% if top_outlets %}
                         {% for outlet, outlet_logo in top_outlets %}
+                            
                                 <div class="col-12 col-md-5 list-group-item list-group-item-action flex-column align-items-start mt-3">
                                     <div class="d-flex justify-content-between flex-nowrap">
                                         <div>
-                                            <a href="#" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a>
-                                            {% comment %} <a href="../newsoutlet/{{outlet.outlet_name}}" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a> {% endcomment %}
-                                            <span class="px-2 badge badge-primary badge-pill">{{outlet.credibility_score|floatformat:2}}% Credible</span>
+                                            <form id="outlet_form-{{outlet.outlet_name}}" name="outlet_form-{{outlet.outlet_name}}" action="../newsoutlet/{{outlet.outlet_name}}" method="POST">
+                                            {% csrf_token %}
+                                                <input type="hidden" name="outletID" value="{{outlet.id}}"/>
+                                                <button type="submit" class="btn btn-link mb-1 p-0 text-dark text-left font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</button>
+                                                {% comment %} <a href="../newsoutlet/{{outlet.outlet_name}}" class="mb-1 text-dark font-weight-bold">{{forloop.counter}}. {{outlet.outlet_name}}</a> {% endcomment %}
+                                                <span class="px-2 badge badge-primary badge-pill">{{outlet.credibility_score|floatformat:2}}% Credible</span>
+                                            </form>
                                         </div>
                                         <div>
                                             <img class="rounded" src="{{outlet_logo}}" width=60px height=60px>
                                         </div>
                                     </div>
                                 </div>
+                            
                         {% endfor %}
                     {% else %}
                     <div class="list-group-item list-group-item-action flex-column align-items-start mt-3">

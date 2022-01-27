@@ -30,15 +30,15 @@
         <button 
             class="navbar-brand align-self-start toggler d-inline"
             type="button" id="sideButton">
-            {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
-                <a href="../home"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
+            {% if request.path == '/about' or request.path == '/howdoesitwork' or request.path == '/tryitout' %} 
+                <a href="../"><span><i class="bi bi-house-fill text-secondary"></i></span></a>    
             {% else %}
                 <span class="navbar-toggler-icon"></span>    
             {% endif %}
             
         </button> 
         <a class="navbar-brand align-self-start"
-            href="../home">
+            href="../">
            <h3 class="headerBlue font-weight-bold d-inline" id="logo">project veritas</h3>
         </a>
         <button 
@@ -77,9 +77,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
-                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
-                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
+                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../about"><h6 class="font-weight-bold">About</h6></a>
+                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
+                                <a class="d-none d-sm-none d-md-block d-lg-block px-2 nav-item nav-link text-secondary" href="../tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
                             </div>
 
                             <div class="mt-2 d-none d-sm-none d-md-block d-lg-none">
@@ -96,9 +96,9 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-block d-sm-block d-md-none">
-                                <a class="px-2 nav-item nav-link text-secondary" href="../home/about"><h6 class="font-weight-bold">About</h6></a>
-                                <a class="px-2 nav-item nav-link text-secondary" href="../home/howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
-                                <a class="px-2 nav-item nav-link text-secondary" href="../home/tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="../about"><h6 class="font-weight-bold">About</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="../howdoesitwork"><h6 class="font-weight-bold">How Does it Work?</h6></a>
+                                <a class="px-2 nav-item nav-link text-secondary" href="../tryitout"><h6 class="font-weight-bold">Try it Out!</h6></a>
                                 <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Favorites</h6></a>
                                 <a class="px-2 nav-item nav-link text-secondary" href="#"><h6 class="font-weight-bold">Account</h6></a>
                             </div>    
@@ -127,12 +127,12 @@
     
       <div class="row w-100 h-100 bg-blue m-0" id="wrapper">
             <!--START OF SIDEBAR-->
-            {% if request.path == '/home/about' or request.path == '/home/howdoesitwork' or request.path == '/home/tryitout' %} 
+            {% if request.path == '/about' or request.path == '/howdoesitwork' or request.path == '/tryitout' %} 
             {% else %}
             <div class="pl-5 pr-2 pt-4" id="sideBar">
                 <div style="width:250px" id="newsSecs">
-                    <a href="../home" 
-                    {% if request.path == '/home/'  %} 
+                    <a href="../" 
+                    {% if request.path == '/'  %} 
                         class="nav-link font-weight-bold rounded mt-2 text-dark active"
                     {% else %}
                         class="nav-link text-secondary font-weight-bold rounded mt-2"
@@ -227,10 +227,10 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <!--MY JAVASCRIPT-->
 <script>

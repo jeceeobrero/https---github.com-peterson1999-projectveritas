@@ -118,8 +118,10 @@ class HomeIndexView(View):
 
         outlets = NewsOutlets.getNewsOutletAll()
 
-        outlet_logo = ["../static/images/gmalogo.jpg",
-                       "../static/images/gmalogo.jpg", "../static/images/gmalogo.jpg"]
+        outlet_logo = []
+        for i in range(len(outlets)):
+            outlet_logo.append("../static/images/gmalogo.jpg")
+
         outletList = list(zip(outlets, outlet_logo))
 
         context = {'city_weather': city_weather,
@@ -128,6 +130,19 @@ class HomeIndexView(View):
                    'top_outlets': outletList}
         flag = True
         return context
+
+    def post(self, request):
+        form = URLForm(request.POST)
+        if form.is_valid():
+            urlTest = request.POST.get("url")
+            global val
+
+            def val():
+                return urlTest
+            return redirect('article:article')
+        else:
+            print(form.errors)
+            return HttpResponse("Not Valid!")
 
 
 #    def displayArticles(request):
